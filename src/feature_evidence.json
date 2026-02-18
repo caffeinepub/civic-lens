@@ -2,10 +2,13 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-docs-section-from-the-primary-navigation-so-users-no-longer-see-a-docs-nav-item-in-the-header-navigation-or-mobile-drawer",
-      "featureTitle": "Remove the Docs section from the primary navigation so users no longer see a \"Docs\" nav item in the header navigation or mobile drawer.",
+      "featureId": "feature-update-the-authentication-ui-so-the-only-visible-sign-in-options-are-continue-with-google-and-continue-with-apple-no-generic-login-button-or-any-other-provider-options-while-keeping-the-existing-internet-identity-based-authentication-flow-behind-the-scenes",
+      "featureTitle": "Update the authentication UI so the only visible sign-in options are \"Continue with Google\" and \"Continue with Apple\" (no generic \"Login\" button or any other provider options), while keeping the existing Internet Identity-based authentication flow behind the scenes.",
       "files": [
-        "frontend/src/components/layout/AppLayout.tsx"
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/SignInOptions.tsx",
+        "frontend/src/components/layout/AppLayout.tsx",
+        "frontend/src/pages/citizen/SubmitComplaintPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,13 +20,13 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-18"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-the-learn-more-section-link-from-the-landing-page-hero-area-so-the-landing-page-no-longer-displays-a-button-or-link-that-routes-users-to-documentation",
-      "featureTitle": "Remove the \"Learn More\" section/link from the landing page hero area so the landing page no longer displays a button or link that routes users to documentation.",
+      "featureId": "feature-update-public-landing-page-calls-to-action-for-unauthenticated-users-to-align-with-the-restricted-sign-in-options-by-replacing-generic-unauthenticated-buttons-e-g-get-started-sign-in-to-get-started-with-a-clear-prompt-to-sign-in-using-google-or-apple-and-a-direct-interaction-that-opens-the-new-google-apple-sign-in-choices",
+      "featureTitle": "Update public landing page calls-to-action for unauthenticated users to align with the restricted sign-in options by replacing generic unauthenticated buttons (e.g., \"Get Started\", \"Sign In to Get Started\") with a clear prompt to sign in using Google or Apple and a direct interaction that opens the new Google/Apple sign-in choices.",
       "files": [
         "frontend/src/pages/LandingPage.tsx"
       ],
@@ -37,27 +40,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-16"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-remove-the-docs-route-from-the-application-routing-so-the-documentation-page-is-no-longer-accessible-via-in-app-navigation-routes",
-      "featureTitle": "Remove the /docs route from the application routing so the documentation page is no longer accessible via in-app navigation routes.",
-      "files": [
-        "frontend/src/App.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-17"
+        "REQ-19"
       ],
       "confidence": "high"
     }

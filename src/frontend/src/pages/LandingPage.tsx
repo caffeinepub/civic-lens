@@ -3,6 +3,7 @@ import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, Clock, CheckCircle, MessageSquare, ArrowRight } from 'lucide-react';
+import SignInOptions from '../components/auth/SignInOptions';
 
 export default function LandingPage() {
   const { identity } = useInternetIdentity();
@@ -30,7 +31,10 @@ export default function LandingPage() {
                     </Link>
                   </Button>
                 ) : (
-                  <Button size="lg">Get Started</Button>
+                  <div className="space-y-3">
+                    <p className="text-sm font-medium text-muted-foreground">Get started by signing in with:</p>
+                    <SignInOptions />
+                  </div>
                 )}
               </div>
             </div>
@@ -108,7 +112,10 @@ export default function LandingPage() {
                 </Link>
               </Button>
             ) : (
-              <Button size="lg">Sign In to Get Started</Button>
+              <div className="flex flex-col items-center gap-4">
+                <p className="text-sm font-medium text-muted-foreground">Sign in to get started:</p>
+                <SignInOptions />
+              </div>
             )}
           </div>
         </div>

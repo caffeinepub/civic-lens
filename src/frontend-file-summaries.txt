@@ -1,11 +1,11 @@
 {
   "frontend/src/App.tsx": "Main application component with TanStack Router setup (without /docs route), role-based routing, and theme provider integration for the Civic Lens platform.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations with proper Status enum usage and blob URL handling for photo uploads without external storage dependency.",
-  "frontend/src/components/auth/LoginButton.tsx": "Reusable login/logout button component with Internet Identity integration and loading states.",
+  "frontend/src/components/auth/LoginButton.tsx": "Authentication control that shows logout button when authenticated or renders the SignInOptions component (Google/Apple buttons) when logged out, maintaining query cache clearing on logout.",
   "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup (placeholder implementation for future user profile feature).",
-  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper with responsive header navigation (without Docs link), role-based menu items, and footer with attribution.",
-  "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, workflow explanation, and call-to-action button (Learn More button removed) showcasing the civic reporting process.",
-  "frontend/src/pages/citizen/SubmitComplaintPage.tsx": "Complaint submission form with category selection, location, description, and required photo upload that properly includes photoId in the mutation input.",
+  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper with responsive header navigation, role-based menu items, and footer with attribution; updated to accommodate the Google/Apple sign-in options in both desktop and mobile views.",
+  "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, workflow explanation, and call-to-action areas that display Google/Apple sign-in options for unauthenticated users instead of generic login buttons.",
+  "frontend/src/pages/citizen/SubmitComplaintPage.tsx": "Complaint submission form with category selection, location, description, and photo upload; shows an alert with Google/Apple sign-in options when user is not authenticated.",
   "frontend/src/pages/citizen/MyReportsPage.tsx": "Citizen dashboard displaying all submitted complaints with status, priority, and SLA information.",
   "frontend/src/pages/official/OfficialDashboardPage.tsx": "Official dashboard with tabbed view of open and in-progress complaints using proper Status enum values from backend.",
   "frontend/src/pages/official/HigherOfficialDashboardPage.tsx": "Higher official dashboard showing escalated complaints that exceeded the 72-hour response window (formerly \"72-hour SLA\") using proper Status.escalated enum value.",
@@ -20,5 +20,6 @@
   "frontend/src/components/feedback/ResolutionFeedbackForm.tsx": "Form component for citizens to confirm resolution, provide rating, and submit feedback comments.",
   "frontend/src/index.css": "Global styles with civic-focused OKLCH color system using warm earth tones (terracotta, olive green) avoiding blue/purple.",
   "frontend/tailwind.config.js": "Tailwind configuration with custom civic color palette, typography (Inter/Poppins), and extended design tokens.",
-  "frontend/README.md": "Comprehensive setup documentation with prerequisites, step-by-step instructions, troubleshooting, and project structure for Civic Lens."
+  "frontend/README.md": "Comprehensive setup documentation with prerequisites, step-by-step instructions, troubleshooting, and project structure for Civic Lens.",
+  "frontend/src/components/auth/SignInOptions.tsx": "Reusable component that displays two sign-in buttons labeled \"Continue with Google\" and \"Continue with Apple\", both triggering the existing Internet Identity login flow with shared loading state and proper hook usage at component top level."
 }

@@ -63,18 +63,20 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-16 items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <Link to="/" className="flex items-center gap-2">
               <img src="/assets/generated/civic-lens-logo.dim_512x512.png" alt="Civic Lens" className="h-8 w-8" />
               <span className="font-bold text-xl">Civic Lens</span>
             </Link>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-6">
               <NavLinks />
             </nav>
           </div>
           <div className="flex items-center gap-4">
-            <LoginButton />
+            <div className="hidden md:block">
+              <LoginButton />
+            </div>
             <Sheet>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon">
@@ -84,6 +86,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <SheetContent>
                 <nav className="flex flex-col gap-4 mt-8">
                   <NavLinks />
+                  <div className="pt-4 border-t">
+                    <LoginButton />
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>

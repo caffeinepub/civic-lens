@@ -1,11 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Remove all Docs-related UI and routing so users no longer see or access documentation from within the app.
+**Goal:** Restrict the app’s authentication UI to only two visible sign-in choices—“Continue with Google” and “Continue with Apple”—while keeping the existing Internet Identity login flow behind the scenes.
 
 **Planned changes:**
-- Remove the “Docs” link from the primary header navigation and the mobile navigation drawer, keeping all other existing nav items unchanged.
-- Remove the “Learn More” button/link from the landing page hero while keeping the primary CTA in the hero intact and functional.
-- Remove the `/docs` route from the frontend router so the documentation page is no longer registered or rendered via in-app routes.
+- Update the logged-out header/auth UI to show exactly two buttons: “Continue with Google” and “Continue with Apple”, removing any generic “Login/Sign in” entry points and any other provider options.
+- Wire both buttons to initiate the existing Internet Identity-based login flow (no changes to the underlying authentication mechanism).
+- Update landing page unauthenticated CTAs to replace generic wording (e.g., “Get Started”) with a clear prompt to sign in using Google or Apple.
+- Ensure the landing page can trigger the same Google/Apple sign-in choice UI used in the header for consistent behavior and wording.
 
-**User-visible outcome:** Users will no longer see “Docs” in navigation, will no longer see “Learn More” on the landing hero, and navigating to `/docs` will not open the in-app documentation page.
+**User-visible outcome:** Logged-out users will only see “Continue with Google” and “Continue with Apple” as sign-in options (in the header and via landing page CTAs), and clicking either will log them in using the existing flow; logged-in users will continue to see logout as they do today.

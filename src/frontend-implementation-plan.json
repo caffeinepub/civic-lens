@@ -1,51 +1,53 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove Docs and Learn More sections from UI/navigation",
+  "title": "Civic Lens — Restrict visible sign-in UI to Google/Apple options",
   "requirements": [
     {
-      "id": "REQ-15",
-      "summary": "Remove the Docs link from the primary header navigation and mobile drawer navigation.",
+      "id": "REQ-18",
+      "summary": "Replace all visible authentication entry points with exactly two sign-in options (Google/Apple) while keeping the existing Internet Identity login flow and current logout behavior.",
       "acceptanceCriteria": [
-        "The header navigation no longer contains a link labeled \"Docs\".",
-        "The mobile navigation drawer no longer contains a link labeled \"Docs\".",
-        "No other navigation links (Home, Report Issue, My Reports, Official Dashboard, Escalated Issues) are removed or renamed as part of this change."
+        "When the user is logged out, the header/auth area shows exactly two sign-in buttons/options labeled \"Continue with Google\" and \"Continue with Apple\".",
+        "Clicking either \"Continue with Google\" or \"Continue with Apple\" initiates the existing login flow successfully (same behavior as current login).",
+        "No other sign-in method labels or UI entry points are shown anywhere in the app UI (e.g., no \"Login\" or \"Sign in\" generic button).",
+        "When the user is logged in, the UI shows a logout control as it does today and does not show the Google/Apple sign-in buttons."
       ],
       "file_operations": [
         {
+          "path": "frontend/src/components/auth/SignInOptions.tsx",
+          "operation": "create",
+          "description": "Create a reusable sign-in options component that renders exactly two buttons labeled \"Continue with Google\" and \"Continue with Apple\"; both trigger the existing Internet Identity login action and share disabled/loading state without changing the visible button labels."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Refactor the auth control so: (1) when authenticated it shows the existing Logout control behavior; (2) when unauthenticated it renders the new SignInOptions component instead of any generic \"Login\" button/text; keep current query cache clearing on logout and current error handling on login."
+        },
+        {
           "path": "frontend/src/components/layout/AppLayout.tsx",
           "operation": "modify",
-          "description": "Remove the \"Docs\" nav item (the Link to \"/docs\") from the shared NavLinks block so it disappears from both the desktop header navigation and the mobile Sheet/drawer navigation, without changing any other existing nav links."
+          "description": "Update the header auth area layout to accommodate the unauthenticated state showing the two Google/Apple sign-in buttons (via LoginButton/SignInOptions) and ensure no other auth labels/controls appear when logged out."
+        },
+        {
+          "path": "frontend/src/pages/citizen/SubmitComplaintPage.tsx",
+          "operation": "modify",
+          "description": "Replace the unauthenticated alert text and UX that currently prompts users to \"log in\" with a Google/Apple-specific prompt and a direct rendering of the same SignInOptions UI (ensuring no generic \"Login/Sign in\" wording or buttons remain on this page)."
         }
       ]
     },
     {
-      "id": "REQ-16",
-      "summary": "Remove the Learn More CTA/link from the landing page hero so it no longer routes users to docs.",
+      "id": "REQ-19",
+      "summary": "Update landing page unauthenticated CTAs to explicitly prompt continuing with Google or Apple and trigger the same Google/Apple sign-in choice UI used in the header.",
       "acceptanceCriteria": [
-        "The landing page hero no longer shows a button/link labeled \"Learn More\".",
-        "The remaining primary CTA in the hero (e.g., \"Report an Issue\" when authenticated or \"Get Started\" when not authenticated) still renders and works."
+        "On the landing page, unauthenticated primary CTAs no longer use generic login wording; they direct users to continue with Google or Apple.",
+        "The landing page provides a way to trigger the same Google/Apple sign-in choice UI used in the header (consistent behavior and wording).",
+        "All new/updated user-facing text is in English."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/LandingPage.tsx",
           "operation": "modify",
-          "description": "Remove the hero-area secondary CTA Button/Link that points to \"/docs\" and is labeled \"Learn More\", leaving the primary CTA logic and layout intact."
-        }
-      ]
-    },
-    {
-      "id": "REQ-17",
-      "summary": "Remove the /docs route registration so documentation is no longer reachable through in-app routing.",
-      "acceptanceCriteria": [
-        "The router no longer registers a route at path \"/docs\".",
-        "Navigating to \"/docs\" does not render the documentation content page (e.g., it should not resolve to the DocsPage component)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Remove the docs route definition (createRoute with path \"/docs\"), remove its inclusion from the route tree, and remove the DocsPage import so the router no longer registers \"/docs\" and cannot resolve it to DocsPage."
+          "description": "Replace unauthenticated CTAs (e.g., \"Get Started\", \"Sign In to Get Started\") with English copy that explicitly directs users to continue with Google or Apple, and embed/reuse the SignInOptions component for the actual interaction so landing and header use the same sign-in choice UI and wording."
         }
       ]
     }

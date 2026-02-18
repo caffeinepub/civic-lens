@@ -1,13 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
+  "projectStateVersion": 9,
   "summary": "Build “Civic Lens”: a civic-issue reporting website where citizens upload problem photos, complaints are deduplicated, routed to officials with a 72-hour SLA and escalation workflow, include AI-based priority scoring, citizen feedback/confirmation, and before/after photo verification.",
   "architectural_notes": [
     "Project name: Civic Lens",
     "Core workflow includes 72-hour SLA with escalation to higher official upon breach",
     "Complaints require photo evidence and support before/after verification",
     "System should prevent duplicate complaints (deduplication required)",
-    "Terminology/UI copy: remove the word \"SLA\" from the website; use alternative wording (e.g., \"72-hour deadline\" or \"response time\") instead."
+    "Terminology/UI copy: remove the word \"SLA\" from the website; use alternative wording (e.g., \"72-hour deadline\" or \"response time\") instead.",
+    "Authentication/login providers must be limited to Google and Apple accounts only."
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -139,6 +140,22 @@
         "REQ-17"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-authentication-ui-so-the-only-visible-sign-in-options-are-continue-with-google-and-continue-with-apple-no-generic-login-button-or-any-other-provider-options-while-keeping-the-existing-internet-identity-based-authentication-flow-behind-the-scenes",
+      "title": "Update the authentication UI so the only visible sign-in options are \"Continue with Google\" and \"Continue with Apple\" (no generic \"Login\" button or any other provider options), while keeping the existing Internet Identity-based authentication flow behind the scenes.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-public-landing-page-calls-to-action-for-unauthenticated-users-to-align-with-the-restricted-sign-in-options-by-replacing-generic-unauthenticated-buttons-e-g-get-started-sign-in-to-get-started-with-a-clear-prompt-to-sign-in-using-google-or-apple-and-a-direct-interaction-that-opens-the-new-google-apple-sign-in-choices",
+      "title": "Update public landing page calls-to-action for unauthenticated users to align with the restricted sign-in options by replacing generic unauthenticated buttons (e.g., \"Get Started\", \"Sign In to Get Started\") with a clear prompt to sign in using Google or Apple and a direct interaction that opens the new Google/Apple sign-in choices.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -207,6 +224,12 @@
     {
       "id": "AR-11",
       "summary": "Remove the Docs section and the Learn More section from the website UI/navigation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Update authentication so users can log in only via Google or Apple accounts (remove/disable other login methods)",
       "reqIds": [],
       "status": "pending"
     }

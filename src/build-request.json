@@ -1,71 +1,55 @@
 {
   "kind": "build_request",
-  "title": "Remove Docs and Learn More sections from UI/navigation",
+  "title": "Restrict login UI to Google or Apple options",
   "projectName": "Civic Lens",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-15",
-      "text": "Remove the Docs section from the primary navigation so users no longer see a \"Docs\" nav item in the header navigation or mobile drawer.",
+      "id": "REQ-18",
+      "text": "Update the authentication UI so the only visible sign-in options are \"Continue with Google\" and \"Continue with Apple\" (no generic \"Login\" button or any other provider options), while keeping the existing Internet Identity-based authentication flow behind the scenes.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-1"
+          "msg-6"
         ],
         "quotes": [
-          "Can you also remove the docs section and learn more section"
+          "People can login only through the Google account or or Apple account . Make this changes"
         ]
       },
       "acceptanceCriteria": [
-        "The header navigation no longer contains a link labeled \"Docs\".",
-        "The mobile navigation drawer no longer contains a link labeled \"Docs\".",
-        "No other navigation links (Home, Report Issue, My Reports, Official Dashboard, Escalated Issues) are removed or renamed as part of this change."
+        "When the user is logged out, the header/auth area shows exactly two sign-in buttons/options labeled \"Continue with Google\" and \"Continue with Apple\".",
+        "Clicking either \"Continue with Google\" or \"Continue with Apple\" initiates the existing login flow successfully (same behavior as current login).",
+        "No other sign-in method labels or UI entry points are shown anywhere in the app UI (e.g., no \"Login\" or \"Sign in\" generic button).",
+        "When the user is logged in, the UI shows a logout control as it does today and does not show the Google/Apple sign-in buttons."
       ]
     },
     {
-      "id": "REQ-16",
-      "text": "Remove the \"Learn More\" section/link from the landing page hero area so the landing page no longer displays a button or link that routes users to documentation.",
+      "id": "REQ-19",
+      "text": "Update public landing page calls-to-action for unauthenticated users to align with the restricted sign-in options by replacing generic unauthenticated buttons (e.g., \"Get Started\", \"Sign In to Get Started\") with a clear prompt to sign in using Google or Apple and a direct interaction that opens the new Google/Apple sign-in choices.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-1"
+          "msg-6"
         ],
         "quotes": [
-          "Can you also remove the docs section and learn more section"
+          "People can login only through the Google account or or Apple account . Make this changes"
         ]
       },
       "acceptanceCriteria": [
-        "The landing page hero no longer shows a button/link labeled \"Learn More\".",
-        "The remaining primary CTA in the hero (e.g., \"Report an Issue\" when authenticated or \"Get Started\" when not authenticated) still renders and works."
-      ]
-    },
-    {
-      "id": "REQ-17",
-      "text": "Remove the /docs route from the application routing so the documentation page is no longer accessible via in-app navigation routes.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-user-1"
-        ],
-        "quotes": [
-          "Can you also remove the docs section and learn more section"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The router no longer registers a route at path \"/docs\".",
-        "Navigating to \"/docs\" does not render the documentation content page (e.g., it should not resolve to the DocsPage component)."
+        "On the landing page, unauthenticated primary CTAs no longer use generic login wording; they direct users to continue with Google or Apple.",
+        "The landing page provides a way to trigger the same Google/Apple sign-in choice UI used in the header (consistent behavior and wording).",
+        "All new/updated user-facing text is in English."
       ]
     }
   ],
   "constraints": [
-    "Frontend files under frontend/src/components/ui must not be edited; they must only be composed/used.",
-    "Do not modify any immutable hook entrypoints (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts) or frontend/src/main.tsx.",
-    "Backend must remain single-actor; no backend changes are required for this request."
+    "Do not edit immutable frontend files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, and frontend/src/components/ui/* must remain unchanged.",
+    "Authentication must continue to use the existing Internet Identity integration (no direct Google OAuth / Apple Sign-In integrations)."
   ],
   "nonGoals": [
-    "Do not change complaint workflows, escalation logic, priority scoring, or any backend data model.",
-    "Do not redesign the landing page beyond removing the specified Docs/Learn More UI elements.",
-    "Do not remove project documentation files from the repository unless required for build correctness; the goal is to remove the docs section from the website UI/navigation."
+    "Implementing real Google OAuth or Apple Sign-In (OIDC) integration.",
+    "Changing backend authentication/authorization logic or user role handling.",
+    "Adding new identity providers beyond the existing Internet Identity flow."
   ],
   "imageRequirements": {
     "required": [],

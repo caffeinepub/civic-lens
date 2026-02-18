@@ -1,46 +1,41 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T00:48:54.093Z",
+  "generatedAt": "2026-02-18T00:57:17.956Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 2,
+    "implemented": 2,
     "items": [
       {
-        "id": "REQ-15",
-        "summary": "Remove the Docs section from the primary navigation so users no longer see a \"Docs\" nav item in the header navigation or mobile drawer.",
+        "id": "REQ-18",
+        "summary": "Update the authentication UI so the only visible sign-in options are \"Continue with Google\" and \"Continue with Apple\" (no generic \"Login\" button or any other provider options), while keeping the existing Internet Identity-based authentication flow behind the scenes.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/layout/AppLayout.tsx"
+          "frontend/src/components/auth/SignInOptions.tsx",
+          "frontend/src/components/auth/LoginButton.tsx",
+          "frontend/src/components/layout/AppLayout.tsx",
+          "frontend/src/pages/citizen/SubmitComplaintPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/layout/AppLayout.tsx"
+          "frontend/src/components/auth/SignInOptions.tsx",
+          "frontend/src/components/auth/LoginButton.tsx",
+          "frontend/src/components/layout/AppLayout.tsx",
+          "frontend/src/pages/citizen/SubmitComplaintPage.tsx"
         ]
       },
       {
-        "id": "REQ-16",
-        "summary": "Remove the \"Learn More\" section/link from the landing page hero area so the landing page no longer displays a button or link that routes users to documentation.",
+        "id": "REQ-19",
+        "summary": "Update public landing page calls-to-action for unauthenticated users to align with the restricted sign-in options by replacing generic unauthenticated buttons (e.g., \"Get Started\", \"Sign In to Get Started\") with a clear prompt to sign in using Google or Apple and a direct interaction that opens the new Google/Apple sign-in choices.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/pages/LandingPage.tsx"
         ],
         "matchedFiles": [
           "frontend/src/pages/LandingPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-17",
-        "summary": "Remove the /docs route from the application routing so the documentation page is no longer accessible via in-app navigation routes.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
         ]
       }
     ]
@@ -50,9 +45,11 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
+    "frontend/src/components/auth/LoginButton.tsx",
+    "frontend/src/components/auth/SignInOptions.tsx",
     "frontend/src/components/layout/AppLayout.tsx",
     "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/pages/citizen/SubmitComplaintPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

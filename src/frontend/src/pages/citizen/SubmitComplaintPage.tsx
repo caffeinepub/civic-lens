@@ -9,9 +9,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import PhotoUploader from '../../components/complaints/PhotoUploader';
+import SignInOptions from '../../components/auth/SignInOptions';
 import { toast } from 'sonner';
 import { Loader2, AlertCircle } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 export default function SubmitComplaintPage() {
   const { identity } = useInternetIdentity();
@@ -58,10 +59,16 @@ export default function SubmitComplaintPage() {
   if (!isAuthenticated) {
     return (
       <div className="container py-12">
-        <Alert>
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>Please log in to submit a complaint</AlertDescription>
-        </Alert>
+        <div className="max-w-2xl mx-auto">
+          <Alert>
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Authentication Required</AlertTitle>
+            <AlertDescription className="mt-4 space-y-4">
+              <p>Please sign in with Google or Apple to submit a complaint and help improve your community.</p>
+              <SignInOptions />
+            </AlertDescription>
+          </Alert>
+        </div>
       </div>
     );
   }
