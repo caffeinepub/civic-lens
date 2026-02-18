@@ -81,7 +81,7 @@ actor {
   var complaintCount = 0;
   let complaintsInternal = Map.empty<Nat, ComplaintInternal>();
 
-  // Role mapping: 
+  // Role mapping:
   // #user = Citizen (can submit complaints)
   // #admin = Official/Higher Official (can manage complaints)
   // For this implementation, we use the existing role system where:
@@ -234,7 +234,7 @@ actor {
       case (?c) {
         let now = Time.now();
         let updatedComplaint = {
-          c with 
+          c with
           escalated = true;
           escalatedAt = ?now;
           status = #escalated;
@@ -296,7 +296,7 @@ actor {
         let newStatus = if (confirmed) { #citizenConfirmed } else { #citizenRejected };
 
         let updatedComplaint = {
-          c with 
+          c with
           feedback = ?feedback;
           status = newStatus;
           updatedAt = Time.now();

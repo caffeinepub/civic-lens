@@ -2,13 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-authentication-ui-so-the-only-visible-sign-in-options-are-continue-with-google-and-continue-with-apple-no-generic-login-button-or-any-other-provider-options-while-keeping-the-existing-internet-identity-based-authentication-flow-behind-the-scenes",
-      "featureTitle": "Update the authentication UI so the only visible sign-in options are \"Continue with Google\" and \"Continue with Apple\" (no generic \"Login\" button or any other provider options), while keeping the existing Internet Identity-based authentication flow behind the scenes.",
+      "featureId": "feature-remove-the-bottom-of-page-watermark-branding-from-the-application-footer-by-deleting-the-built-with-using-caffeine-ai-text-and-the-caffeine-ai-outbound-link-so-it-no-longer-appears-on-any-page",
+      "featureTitle": "Remove the bottom-of-page watermark/branding from the application footer by deleting the “Built with ❤️ using caffeine.ai” text and the caffeine.ai outbound link so it no longer appears on any page.",
       "files": [
-        "frontend/src/components/auth/LoginButton.tsx",
-        "frontend/src/components/auth/SignInOptions.tsx",
-        "frontend/src/components/layout/AppLayout.tsx",
-        "frontend/src/pages/citizen/SubmitComplaintPage.tsx"
+        "frontend/src/components/layout/AppLayout.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -20,27 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-18"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-update-public-landing-page-calls-to-action-for-unauthenticated-users-to-align-with-the-restricted-sign-in-options-by-replacing-generic-unauthenticated-buttons-e-g-get-started-sign-in-to-get-started-with-a-clear-prompt-to-sign-in-using-google-or-apple-and-a-direct-interaction-that-opens-the-new-google-apple-sign-in-choices",
-      "featureTitle": "Update public landing page calls-to-action for unauthenticated users to align with the restricted sign-in options by replacing generic unauthenticated buttons (e.g., \"Get Started\", \"Sign In to Get Started\") with a clear prompt to sign in using Google or Apple and a direct interaction that opens the new Google/Apple sign-in choices.",
-      "files": [
-        "frontend/src/pages/LandingPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-19"
+        "REQ-26"
       ],
       "confidence": "high"
     }

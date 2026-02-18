@@ -178,3 +178,81 @@ export function useDuplicateCheck() {
     },
   });
 }
+
+// Password-related hooks
+// Note: These methods are not yet implemented in the backend
+// They will return default values until backend is updated
+export function useHasPasswordRegistered() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<boolean>({
+    queryKey: ['hasPasswordRegistered'],
+    queryFn: async () => {
+      if (!actor) return false;
+      try {
+        // Check if method exists on actor
+        if ('hasPasswordRegistered' in actor && typeof (actor as any).hasPasswordRegistered === 'function') {
+          return await (actor as any).hasPasswordRegistered();
+        }
+        // Method not implemented yet, return false (no password required)
+        return false;
+      } catch (error) {
+        console.error('Error checking password registration:', error);
+        return false;
+      }
+    },
+    enabled: !!actor && !isFetching,
+    retry: false,
+  });
+}
+
+export function useRegisterPassword() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (password: string) => {
+      if (!actor) throw new Error('Actor not available');
+      try {
+        // Check if method exists on actor
+        if ('registerPassword' in actor && typeof (actor as any).registerPassword === 'function') {
+          await (actor as any).registerPassword(password);
+        } else {
+          throw new Error('Password registration is not yet available. Please contact support.');
+        }
+      } catch (error: any) {
+        // Extract user-friendly error message
+        const errorMessage = error?.message || 'Failed to register password';
+        throw new Error(errorMessage);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['hasPasswordRegistered'] });
+    },
+  });
+}
+
+export function useVerifyPassword() {
+  const { actor } = useActor();
+
+  return useMutation({
+    mutationFn: async (password: string) => {
+      if (!actor) throw new Error('Actor not available');
+      try {
+        // Check if method exists on actor
+        if ('verifyPassword' in actor && typeof (actor as any).verifyPassword === 'function') {
+          const isValid = await (actor as any).verifyPassword(password);
+          if (!isValid) {
+            throw new Error('Incorrect password');
+          }
+          return isValid;
+        } else {
+          throw new Error('Password verification is not yet available. Please contact support.');
+        }
+      } catch (error: any) {
+        const errorMessage = error?.message || 'Failed to verify password';
+        throw new Error(errorMessage);
+      }
+    },
+  });
+}

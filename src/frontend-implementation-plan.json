@@ -1,53 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Civic Lens — Restrict visible sign-in UI to Google/Apple options",
+  "title": "Remove footer watermark branding",
   "requirements": [
     {
-      "id": "REQ-18",
-      "summary": "Replace all visible authentication entry points with exactly two sign-in options (Google/Apple) while keeping the existing Internet Identity login flow and current logout behavior.",
+      "id": "REQ-26",
+      "summary": "Remove the “Built with ❤️ using caffeine.ai” watermark text and outbound caffeine.ai link from the global footer across all pages.",
       "acceptanceCriteria": [
-        "When the user is logged out, the header/auth area shows exactly two sign-in buttons/options labeled \"Continue with Google\" and \"Continue with Apple\".",
-        "Clicking either \"Continue with Google\" or \"Continue with Apple\" initiates the existing login flow successfully (same behavior as current login).",
-        "No other sign-in method labels or UI entry points are shown anywhere in the app UI (e.g., no \"Login\" or \"Sign in\" generic button).",
-        "When the user is logged in, the UI shows a logout control as it does today and does not show the Google/Apple sign-in buttons."
+        "The footer no longer displays any text or links referencing “caffeine.ai”.",
+        "No outbound link to https://caffeine.ai/ is present in the rendered footer DOM across all routes.",
+        "The footer still renders without layout breakage (e.g., copyright and other footer items remain aligned and readable)."
       ],
       "file_operations": [
-        {
-          "path": "frontend/src/components/auth/SignInOptions.tsx",
-          "operation": "create",
-          "description": "Create a reusable sign-in options component that renders exactly two buttons labeled \"Continue with Google\" and \"Continue with Apple\"; both trigger the existing Internet Identity login action and share disabled/loading state without changing the visible button labels."
-        },
-        {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
-          "operation": "modify",
-          "description": "Refactor the auth control so: (1) when authenticated it shows the existing Logout control behavior; (2) when unauthenticated it renders the new SignInOptions component instead of any generic \"Login\" button/text; keep current query cache clearing on logout and current error handling on login."
-        },
         {
           "path": "frontend/src/components/layout/AppLayout.tsx",
           "operation": "modify",
-          "description": "Update the header auth area layout to accommodate the unauthenticated state showing the two Google/Apple sign-in buttons (via LoginButton/SignInOptions) and ensure no other auth labels/controls appear when logged out."
-        },
-        {
-          "path": "frontend/src/pages/citizen/SubmitComplaintPage.tsx",
-          "operation": "modify",
-          "description": "Replace the unauthenticated alert text and UX that currently prompts users to \"log in\" with a Google/Apple-specific prompt and a direct rendering of the same SignInOptions UI (ensuring no generic \"Login/Sign in\" wording or buttons remain on this page)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "summary": "Update landing page unauthenticated CTAs to explicitly prompt continuing with Google or Apple and trigger the same Google/Apple sign-in choice UI used in the header.",
-      "acceptanceCriteria": [
-        "On the landing page, unauthenticated primary CTAs no longer use generic login wording; they direct users to continue with Google or Apple.",
-        "The landing page provides a way to trigger the same Google/Apple sign-in choice UI used in the header (consistent behavior and wording).",
-        "All new/updated user-facing text is in English."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Replace unauthenticated CTAs (e.g., \"Get Started\", \"Sign In to Get Started\") with English copy that explicitly directs users to continue with Google or Apple, and embed/reuse the SignInOptions component for the actual interaction so landing and header use the same sign-in choice UI and wording."
+          "description": "Update the footer markup to delete the “Built with ❤️ using” text fragment and remove the outbound anchor linking to caffeine.ai (including any dynamic URL construction), while preserving the remaining footer content (e.g., © year / app name and GitHub icon) and alignment."
         }
       ]
     }

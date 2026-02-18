@@ -76,4 +76,7 @@ export interface backendInterface {
     submitComplaint(input: ComplaintInput): Promise<ComplaintResponse>;
     timeLeft(dueAt: bigint): Promise<bigint>;
     updateStatus(id: bigint, status: Status): Promise<void>;
+    hasPasswordRegistered(): Promise<boolean>;
+    registerPassword(password: string): Promise<void>;
+    verifyPassword(password: string): Promise<boolean>;
 }

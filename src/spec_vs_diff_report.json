@@ -1,44 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T00:57:17.953Z",
-  "summary": "Implemented a new SignInOptions component with exactly two buttons (“Continue with Google” / “Continue with Apple”) that both trigger the existing Internet Identity login flow, and updated the header auth control to show these options only when logged out and a Logout button when logged in. The landing page unauthenticated CTA area was updated to prompt sign-in via Google/Apple and render the same SignInOptions UI. Also added an unauthenticated gate on SubmitComplaintPage showing the same sign-in options (not explicitly requested).",
+  "generatedAt": "2026-02-18T01:21:11.422Z",
+  "summary": "The diff provides only truncated evidence of footer changes. While a summary line claims the footer is “without watermark branding,” the actual footer JSX containing (or removing) the “Built with ❤️ using caffeine.ai” text/link is not visible in the truncated AppLayout diff, so REQ-26 cannot be conclusively verified from the provided diff summary alone. Additionally, the diff includes unrelated project/documentation updates describing new authentication/password and workflow behaviors that were not requested.",
   "missing_requirements": [
     {
-      "id": "REQ-18",
-      "requirement": "No other sign-in method labels or UI entry points are shown anywhere in the app UI (e.g., no \"Login\" or \"Sign in\" generic button).",
-      "reason": "The diff shows updates to the header auth control (LoginButton/AppLayout) to render only Google/Apple options when logged out, but the provided diff summary does not include evidence that other parts of the app removed/avoid generic \"Login\"/\"Sign in\" entry points (outside the touched files).",
+      "id": "REQ-26",
+      "requirement": "Remove the bottom-of-page watermark/branding from the application footer by deleting the “Built with ❤️ using caffeine.ai” text and the caffeine.ai outbound link so it no longer appears on any page.",
+      "reason": "The only relevant code file (AppLayout.tsx) is truncated at the start of the footer, so the diff summary does not show the removal of the “caffeine.ai” text nor confirm the outbound link is gone. A separate text summary claims the footer has no watermark branding, but that is not direct code evidence of removal across all routes.",
       "evidence": [
-        "frontend/src/components/auth/LoginButton.tsx",
-        "frontend/src/components/layout/AppLayout.tsx",
-        "frontend-file-summaries.txt"
+        "frontend/src/components/layout/AppLayout.tsx (truncated)",
+        "frontend-file-summaries.txt (states “footer without watermark branding” but does not show code)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Added an unauthenticated guard on the complaint submission page that prompts the user to sign in with Google/Apple and renders the SignInOptions component there.",
-      "reason": "REQ-18 and REQ-19 focus on the header/auth UI and the public landing page CTAs; they do not request changes to SubmitComplaintPage authentication gating UI.",
+      "description": "Updates describing password registration/verification flows and gating navigation based on password verification status.",
+      "reason": "BuildRequest explicitly constrained changes to removing footer watermark/branding and to not introduce new authentication behavior; the diff includes documentation/state summaries claiming new password verification/auth gating behavior.",
       "evidence": [
-        "frontend/src/pages/citizen/SubmitComplaintPage.tsx"
+        "frontend-file-summaries.txt (describes password flow changes in App.tsx, useQueries.ts, LoginButton.tsx, ProfileSetupModal.tsx, AppLayout.tsx)",
+        "project_state.json (summary describes broader workflow features unrelated to REQ-26)"
       ]
     },
     {
-      "description": "Added a login error recovery path that clears the identity/query cache and retries login when the error message is \"User is already authenticated\".",
-      "reason": "Not requested by REQ-18/REQ-19; it is additional behavior beyond restricting visible sign-in options.",
+      "description": "Updates describing landing/submit pages showing Google/Apple sign-in options.",
+      "reason": "Not requested and outside the allowed scope (“Keep changes limited to removing the watermark/branding”).",
       "evidence": [
-        "frontend/src/components/auth/SignInOptions.tsx"
+        "frontend-file-summaries.txt (LandingPage.tsx and SubmitComplaintPage.tsx summaries mention Google/Apple sign-in options)"
       ]
     }
   ],
-  "confidence": 0.68,
+  "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/auth/LoginButton.tsx",
-    "frontend/src/components/auth/SignInOptions.tsx",
     "frontend/src/components/layout/AppLayout.tsx",
-    "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/citizen/SubmitComplaintPage.tsx",
     "project_state.json"
   ]
 }

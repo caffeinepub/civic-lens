@@ -1,6 +1,7 @@
 import { Link, useRouterState } from '@tanstack/react-router';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
 import { useIsCallerAdmin } from '../../hooks/useQueries';
+import { usePasswordVerification } from '../../hooks/usePasswordVerification';
 import LoginButton from '../auth/LoginButton';
 import { Menu, FileText, Home, Upload, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,8 +11,10 @@ import { SiGithub } from 'react-icons/si';
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { identity } = useInternetIdentity();
   const { data: isAdmin } = useIsCallerAdmin();
+  const { isVerified } = usePasswordVerification();
   const router = useRouterState();
   const isAuthenticated = !!identity;
+  const isFullyAuthenticated = isAuthenticated && isVerified;
 
   const currentPath = router.location.pathname;
 
@@ -21,7 +24,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <Home className="h-4 w-4" />
         Home
       </Link>
-      {isAuthenticated && (
+      {isFullyAuthenticated && (
         <>
           <Link
             to="/submit"
@@ -39,7 +42,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
         </>
       )}
-      {isAdmin && (
+      {isFullyAuthenticated && isAdmin && (
         <>
           <Link
             to="/official"
@@ -102,17 +105,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>© {new Date().getFullYear()} Civic Lens. Built with ❤️ using</span>
-              <a
-                href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(
-                  typeof window !== 'undefined' ? window.location.hostname : 'civic-lens'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium hover:text-primary transition-colors"
-              >
-                caffeine.ai
-              </a>
+              <span>© {new Date().getFullYear()} Civic Lens</span>
             </div>
             <div className="flex items-center gap-4">
               <a
