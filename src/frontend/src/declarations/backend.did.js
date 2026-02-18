@@ -24,6 +24,7 @@ export const UserRole = IDL.Variant({
   'user' : IDL.Null,
   'guest' : IDL.Null,
 });
+export const ExternalBlob = IDL.Vec(IDL.Nat8);
 export const Status = IDL.Variant({
   'resolved' : IDL.Null,
   'citizenConfirmed' : IDL.Null,
@@ -59,6 +60,7 @@ export const Complaint = IDL.Record({
   'priorityScore' : PriorityScore,
   'escalatedAt' : IDL.Opt(IDL.Int),
   'reporter' : IDL.Principal,
+  'afterPhotoId' : IDL.Opt(IDL.Text),
   'dueAt' : IDL.Int,
   'location' : IDL.Text,
   'photoId' : IDL.Text,
@@ -111,12 +113,15 @@ export const idlService = IDL.Service({
     ),
   'duplicateCheck' : IDL.Func([IDL.Text], [IDL.Bool], ['query']),
   'eskalacijaPrijave' : IDL.Func([IDL.Nat], [], []),
+  'fetchAfterPhoto' : IDL.Func([IDL.Text], [ExternalBlob], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getComplaint' : IDL.Func([IDL.Nat], [IDL.Opt(Complaint)], ['query']),
   'getComplaintsByStatus' : IDL.Func([Status], [IDL.Vec(Complaint)], ['query']),
   'getOpenComplaints' : IDL.Func([], [IDL.Vec(Complaint)], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'publicComplaintId' : IDL.Func([IDL.Nat], [IDL.Text], ['query']),
+  'storeAfterPhoto' : IDL.Func([IDL.Nat, IDL.Text, ExternalBlob], [], []),
+  'storePhoto' : IDL.Func([IDL.Text, ExternalBlob], [], []),
   'submitComplaint' : IDL.Func([ComplaintInput], [ComplaintResponse], []),
   'timeLeft' : IDL.Func([IDL.Int], [IDL.Int], ['query']),
   'updateStatus' : IDL.Func([IDL.Nat, Status], [], []),
@@ -141,6 +146,7 @@ export const idlFactory = ({ IDL }) => {
     'user' : IDL.Null,
     'guest' : IDL.Null,
   });
+  const ExternalBlob = IDL.Vec(IDL.Nat8);
   const Status = IDL.Variant({
     'resolved' : IDL.Null,
     'citizenConfirmed' : IDL.Null,
@@ -176,6 +182,7 @@ export const idlFactory = ({ IDL }) => {
     'priorityScore' : PriorityScore,
     'escalatedAt' : IDL.Opt(IDL.Int),
     'reporter' : IDL.Principal,
+    'afterPhotoId' : IDL.Opt(IDL.Text),
     'dueAt' : IDL.Int,
     'location' : IDL.Text,
     'photoId' : IDL.Text,
@@ -228,6 +235,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'duplicateCheck' : IDL.Func([IDL.Text], [IDL.Bool], ['query']),
     'eskalacijaPrijave' : IDL.Func([IDL.Nat], [], []),
+    'fetchAfterPhoto' : IDL.Func([IDL.Text], [ExternalBlob], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getComplaint' : IDL.Func([IDL.Nat], [IDL.Opt(Complaint)], ['query']),
     'getComplaintsByStatus' : IDL.Func(
@@ -238,6 +246,8 @@ export const idlFactory = ({ IDL }) => {
     'getOpenComplaints' : IDL.Func([], [IDL.Vec(Complaint)], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'publicComplaintId' : IDL.Func([IDL.Nat], [IDL.Text], ['query']),
+    'storeAfterPhoto' : IDL.Func([IDL.Nat, IDL.Text, ExternalBlob], [], []),
+    'storePhoto' : IDL.Func([IDL.Text, ExternalBlob], [], []),
     'submitComplaint' : IDL.Func([ComplaintInput], [ComplaintResponse], []),
     'timeLeft' : IDL.Func([IDL.Int], [IDL.Int], ['query']),
     'updateStatus' : IDL.Func([IDL.Nat, Status], [], []),

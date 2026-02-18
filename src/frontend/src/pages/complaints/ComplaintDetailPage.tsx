@@ -94,7 +94,11 @@ export default function ComplaintDetailPage() {
 
               <Separator />
 
-              <BeforeAfterComparison beforePhotoId={complaint.photoId} status={complaint.status} />
+              <BeforeAfterComparison 
+                beforePhotoId={complaint.photoId} 
+                afterPhotoId={complaint.afterPhotoId} 
+                status={complaint.status} 
+              />
 
               {isAdmin && complaint.status === Status.open && (
                 <>

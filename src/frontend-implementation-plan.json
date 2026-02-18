@@ -1,67 +1,78 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove password registration step from onboarding while preserving existing-password verification",
+  "title": "Persist and correctly render complaint photos using backend-backed storage",
   "requirements": [
     {
-      "id": "REQ-28",
-      "summary": "Remove the password registration (\"Create Your Password\") step so users are never prompted to create a password after Internet Identity sign-in.",
+      "id": "REQ-31",
+      "summary": "Upload and persist the citizen \"before\" photo via backend storage before submitting a complaint, and submit the complaint referencing the persistent photo identifier.",
       "acceptanceCriteria": [
-        "After a user signs in, the app does not open any modal or section titled \"Create Your Password\".",
-        "Users who do not have a password registered are not blocked from accessing authenticated actions (e.g., navigating to Submit, dashboards) due to password registration.",
-        "No user-facing text anywhere in the UI instructs users to create a password (e.g., \"Create Your Password\", \"Create Password\", or registration descriptions)."
+        "Submitting a complaint with a valid image results in a complaint whose stored photo identifier can be used to fetch/display the image later.",
+        "After submitting a complaint, the citizen can open the complaint detail page and see the before photo displayed correctly after a full page refresh.",
+        "If photo upload/storage fails, the UI shows a clear English error message and does not create the complaint."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Update the post-login password modal gating logic to never open a password registration modal when the backend reports no password is registered; only consider opening a verification modal when a password exists and the session is not verified."
+          "description": "Update useSubmitComplaint to stop using URL.createObjectURL; instead generate a persistent photo identifier, convert the File to bytes, use the blob-storage ExternalBlob (ExternalBlob.fromBytes) to call the backend storage capability (actor.storePhoto), and only after successful storage call actor.submitComplaint with the persistent photoId. Ensure failures show an English error and prevent complaint submission. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "path": "frontend/src/backend.d.ts",
           "operation": "modify",
-          "description": "Remove the registration mode UI and all user-facing registration copy (e.g., titles/descriptions/buttons for creating a password). Keep only the password verification UI (\"Enter Your Password\") for the remaining flow."
-        },
-        {
-          "path": "frontend/src/components/auth/ProfileSetupModal.types.ts",
-          "operation": "modify",
-          "description": "Update modal types/props to eliminate the registration mode from the supported modal modes so it cannot be invoked by the app and no registration strings remain reachable."
-        },
-        {
-          "path": "frontend/src/components/layout/AppLayout.tsx",
-          "operation": "modify",
-          "description": "Adjust authenticated navigation gating so users without a registered password are treated as fully authenticated after Internet Identity login (do not require password verification to see/enter authenticated areas when hasPasswordRegistered is false)."
+          "description": "Align frontend typings with the backend photo storage/retrieval contract used by the updated complaint submit flow (e.g., ensure the actor interface and ExternalBlob types reflect the photo storage capability that the frontend calls)."
         }
       ]
     },
     {
-      "id": "REQ-29",
-      "summary": "Show password verification UI only for principals with an existing registered password; otherwise show no password-related UI and do not require verification.",
+      "id": "REQ-32",
+      "summary": "Render complaint photos using backend-backed retrieval (not transient blob/object URLs) across complaint detail and any other views that display complaint photos.",
       "acceptanceCriteria": [
-        "If hasPasswordRegistered returns true and the session is not verified, the app shows only the password verification modal (e.g., \"Enter Your Password\") and requires successful verification to proceed.",
-        "If hasPasswordRegistered returns false, the app does not show any password modal and does not require verification.",
-        "Logout continues to clear any password verification state (sessionStorage) as it does today."
+        "Complaint detail page renders the before photo using backend-backed retrieval (not a transient object URL).",
+        "Citizen and official dashboards/pages that display complaint photos (where applicable) no longer break after refresh/navigation due to invalid blob URLs.",
+        "When a photo cannot be loaded, the UI shows a non-crashing fallback state and an English error toast/message."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/components/complaints/BeforeAfterComparison.tsx",
           "operation": "modify",
-          "description": "Ensure the modal decision logic is strictly: (1) if hasPasswordRegistered is true and not session-verified, open verification modal; (2) otherwise, do not open any password-related modal. Remove any behavior that opens registration when hasPasswordRegistered is false."
+          "description": "Replace direct <img src={photoId}> rendering with backend-backed retrieval: use the blob-storage ExternalBlob returned from backend fetch calls and render via ExternalBlob.getDirectURL (or equivalent safe URL creation), with a non-crashing fallback UI when unavailable. Add English error handling/toast on load failures. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "path": "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
           "operation": "modify",
-          "description": "Ensure the modal only performs password verification using existing verification behavior; remove any password registration mutation paths and related validation/copy so the only password flow is verification for existing-password users."
+          "description": "Wire BeforeAfterComparison to receive and display both before and after identifiers from the complaint (pass afterPhotoId when present). Ensure the detail view does not assume photoId is directly renderable as an <img> src."
         },
         {
-          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Verify logout behavior continues to clear password verification state via usePasswordVerification.clearVerification() before clearing identity and query cache, preserving existing sessionStorage clearing behavior."
+          "description": "Add React Query helpers for retrieving complaint photos as renderable URLs (e.g., fetch before/after ExternalBlob from backend and expose getDirectURL), including error mapping to English messages that the UI can display. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "summary": "Support uploading and persisting the official \"after\" photo when resolving a complaint, and display before/after photos correctly after refresh.",
+      "acceptanceCriteria": [
+        "When an official uploads an after photo and marks a complaint Resolved, the after photo is persisted and associated with the complaint in the backend.",
+        "After marking Resolved, the complaint detail page shows both before and after photos correctly after a full page refresh.",
+        "If the project already has live state, any required backend state/schema change is handled via a conditional migration (only if needed)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update useUpdateComplaintStatus to, when resolving with an after photo, generate a persistent after-photo identifier, wrap bytes using blob-storage ExternalBlob (ExternalBlob.fromBytes), call the backend association/storage capability (actor.storeAfterPhoto) and only then call actor.updateStatus. Ensure that if storage fails, the UI surfaces a clear English error and does not mark the complaint resolved. Verify the component's usage instructions before implementing."
         },
         {
-          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "path": "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
           "operation": "modify",
-          "description": "Incorporate hasPasswordRegistered + session verification state so that route navigation links are blocked only when a password exists and is not verified; otherwise allow normal authenticated navigation. Ensure no password UI is shown when hasPasswordRegistered is false."
+          "description": "Keep the resolve flow gated on selecting an after photo, and rely on the updated mutation to persist it. Ensure post-resolution UI refresh shows both before and after images by passing complaint.afterPhotoId to the comparison component and relying on backend-backed rendering."
+        },
+        {
+          "path": "frontend/src/backend.d.ts",
+          "operation": "modify",
+          "description": "Ensure frontend actor typings include the after-photo persistence and retrieval capabilities used by the resolve flow (including the ExternalBlob-based methods), matching backend changes required for persistent after-photo identifiers."
         }
       ]
     }

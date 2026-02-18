@@ -7,10 +7,12 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
-export interface Feedback {
-    comment: string;
-    rating?: bigint;
-    confirmed: boolean;
+export class ExternalBlob {
+    getBytes(): Promise<Uint8Array<ArrayBuffer>>;
+    getDirectURL(): string;
+    static fromURL(url: string): ExternalBlob;
+    static fromBytes(blob: Uint8Array<ArrayBuffer>): ExternalBlob;
+    withUploadProgress(onProgress: (percentage: number) => void): ExternalBlob;
 }
 export interface Complaint {
     id: bigint;
@@ -28,9 +30,15 @@ export interface Complaint {
     priorityScore: PriorityScore;
     escalatedAt?: bigint;
     reporter: Principal;
+    afterPhotoId?: string;
     dueAt: bigint;
     location: string;
     photoId: string;
+}
+export interface Feedback {
+    comment: string;
+    rating?: bigint;
+    confirmed: boolean;
 }
 export interface PriorityScore {
     urgency: bigint;
@@ -65,18 +73,18 @@ export enum UserRole {
 export interface backendInterface {
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     confirmationFeedback(compId: bigint, comment: string, rating: bigint | null, confirmed: boolean): Promise<void>;
-    duplicateCheck(desc: string): Promise<boolean>;
+    duplicateCheck(_desc: string): Promise<boolean>;
     eskalacijaPrijave(id: bigint): Promise<void>;
+    fetchAfterPhoto(_photoId: string): Promise<ExternalBlob>;
     getCallerUserRole(): Promise<UserRole>;
     getComplaint(id: bigint): Promise<Complaint | null>;
     getComplaintsByStatus(status: Status): Promise<Array<Complaint>>;
     getOpenComplaints(): Promise<Array<Complaint>>;
     isCallerAdmin(): Promise<boolean>;
     publicComplaintId(userId: bigint): Promise<string>;
+    storeAfterPhoto(complaintId: bigint, photoId: string, afterPhoto: ExternalBlob): Promise<void>;
+    storePhoto(fileId: string, photo: ExternalBlob): Promise<void>;
     submitComplaint(input: ComplaintInput): Promise<ComplaintResponse>;
     timeLeft(dueAt: bigint): Promise<bigint>;
     updateStatus(id: bigint, status: Status): Promise<void>;
-    hasPasswordRegistered(): Promise<boolean>;
-    registerPassword(password: string): Promise<void>;
-    verifyPassword(password: string): Promise<boolean>;
 }

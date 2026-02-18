@@ -2,13 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-password-registration-create-your-password-step-from-the-authenticated-onboarding-flow-so-users-are-no-longer-prompted-to-create-a-password-after-signing-in-with-internet-identity",
-      "featureTitle": "Remove the password registration (\"Create Your Password\") step from the authenticated onboarding flow so users are no longer prompted to create a password after signing in with Internet Identity.",
+      "featureId": "feature-update-complaint-creation-so-the-citizen-before-photo-is-actually-uploaded-stored-using-the-backend-photo-storage-and-only-then-the-complaint-is-created-referencing-the-persistent-photo-identifier-instead-of-using-url-createobjecturl",
+      "featureTitle": "Update complaint creation so the citizen \"before\" photo is actually uploaded/stored using the backend photo storage, and only then the complaint is created referencing the persistent photo identifier (instead of using URL.createObjectURL).",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/auth/ProfileSetupModal.tsx",
-        "frontend/src/components/auth/ProfileSetupModal.types.ts",
-        "frontend/src/components/layout/AppLayout.tsx"
+        "frontend/src/hooks/useQueries.ts"
       ],
       "components": [
         "authorization@4.0.0",
@@ -20,17 +17,17 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-28"
+        "REQ-31"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-keep-password-verification-behavior-only-for-users-who-already-have-a-password-registered-if-the-backend-reports-that-a-password-exists-for-the-signed-in-principal-and-the-session-is-not-verified-show-the-verification-modal-otherwise-do-not-show-any-password-related-ui",
-      "featureTitle": "Keep password verification behavior only for users who already have a password registered: if the backend reports that a password exists for the signed-in principal and the session is not verified, show the verification modal; otherwise do not show any password-related UI.",
+      "featureId": "feature-fix-photo-rendering-across-the-ui-by-replacing-any-direct-img-src-photoid-usage-that-assumes-photoid-is-a-browser-blob-object-url-so-that-complaint-photos-are-rendered-from-backend-stored-photo-data-before-photo-and-when-available-after-photo",
+      "featureTitle": "Fix photo rendering across the UI by replacing any direct <img src={photoId}> usage that assumes photoId is a browser blob/object URL, so that complaint photos are rendered from backend-stored photo data (before photo and, when available, after photo).",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/auth/ProfileSetupModal.tsx",
-        "frontend/src/components/layout/AppLayout.tsx"
+        "frontend/src/components/complaints/BeforeAfterComparison.tsx",
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/complaints/ComplaintDetailPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -42,7 +39,28 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-29"
+        "REQ-32"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-backend-and-frontend-support-for-uploading-and-persisting-the-official-after-photo-when-resolving-a-complaint-and-store-a-persistent-after-photo-identifier-on-the-complaint-so-before-after-comparison-can-display-both-images-after-refresh",
+      "featureTitle": "Add backend and frontend support for uploading and persisting the official \"after\" photo when resolving a complaint, and store a persistent after-photo identifier on the complaint so before/after comparison can display both images after refresh.",
+      "files": [
+        "frontend/src/hooks/useQueries.ts",
+        "frontend/src/pages/complaints/ComplaintDetailPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-33"
       ],
       "confidence": "high"
     }

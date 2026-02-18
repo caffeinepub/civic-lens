@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 17,
+  "projectStateVersion": 19,
   "summary": "Build “Civic Lens”: a civic-issue reporting website where citizens upload problem photos, complaints are deduplicated, routed to officials with a 72-hour SLA and escalation workflow, include AI-based priority scoring, citizen feedback/confirmation, and before/after photo verification.",
   "architectural_notes": [
     "Project name: Civic Lens",
@@ -13,8 +13,10 @@
     "User request: remove everything in the bottom of the website (entire footer content/area), not only the existing watermark text/link.",
     "User request: remove the \"Create your password\" section from the website/auth UI."
   ],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Photo upload is not working for users (cannot upload complaint photos); needs investigation and fix."
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-authentication-flow-and-role-handling-so-that-users-can-act-as-citizen-official-or-higher-official-within-the-app",
@@ -215,6 +217,30 @@
         "REQ-29"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-complaint-creation-so-the-citizen-before-photo-is-actually-uploaded-stored-using-the-backend-photo-storage-and-only-then-the-complaint-is-created-referencing-the-persistent-photo-identifier-instead-of-using-url-createobjecturl",
+      "title": "Update complaint creation so the citizen \"before\" photo is actually uploaded/stored using the backend photo storage, and only then the complaint is created referencing the persistent photo identifier (instead of using URL.createObjectURL).",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-photo-rendering-across-the-ui-by-replacing-any-direct-img-src-photoid-usage-that-assumes-photoid-is-a-browser-blob-object-url-so-that-complaint-photos-are-rendered-from-backend-stored-photo-data-before-photo-and-when-available-after-photo",
+      "title": "Fix photo rendering across the UI by replacing any direct <img src={photoId}> usage that assumes photoId is a browser blob/object URL, so that complaint photos are rendered from backend-stored photo data (before photo and, when available, after photo).",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-backend-and-frontend-support-for-uploading-and-persisting-the-official-after-photo-when-resolving-a-complaint-and-store-a-persistent-after-photo-identifier-on-the-complaint-so-before-after-comparison-can-display-both-images-after-refresh",
+      "title": "Add backend and frontend support for uploading and persisting the official \"after\" photo when resolving a complaint, and store a persistent after-photo identifier on the complaint so before/after comparison can display both images after refresh.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -338,6 +364,14 @@
       "id": "AR-19",
       "summary": "Remove the \"Create your password\" section from the authentication/onboarding UI flow",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Implement persistent photo storage in the Motoko backend so uploaded complaint photos are stored in-canister (not as frontend-only blob/object URLs) and can be retrieved later for display.",
+      "reqIds": [
+        "REQ-30"
+      ],
       "status": "pending"
     }
   ],

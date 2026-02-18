@@ -1,7 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
 import type { Complaint, ComplaintInput, Status, UserRole } from '../backend';
-import { Status as StatusEnum } from '../backend';
+import { Status as StatusEnum, ExternalBlob } from '../backend';
+import { toast } from 'sonner';
 
 export function useGetCallerUserRole() {
   const { actor, isFetching } = useActor();
@@ -77,24 +78,44 @@ export function useSubmitComplaint() {
     mutationFn: async (input: Omit<ComplaintInput, 'photoId'> & { photoFile: File }) => {
       if (!actor) throw new Error('Actor not available');
 
-      // For now, we'll use a data URL as the photoId since blob storage isn't available
-      const photoBytes = await input.photoFile.arrayBuffer();
-      const blob = new Blob([photoBytes], { type: input.photoFile.type });
-      const photoId = URL.createObjectURL(blob);
+      try {
+        // Generate a unique photo identifier
+        const photoId = `photo-${Date.now()}-${Math.random().toString(36).substring(7)}`;
 
-      const complaintInput: ComplaintInput = {
-        category: input.category,
-        description: input.description,
-        location: input.location,
-        photoId,
-        publicId: input.publicId,
-      };
+        // Convert File to bytes
+        const photoBytes = new Uint8Array(await input.photoFile.arrayBuffer());
 
-      return actor.submitComplaint(complaintInput);
+        // Create ExternalBlob with upload progress tracking
+        const externalBlob = ExternalBlob.fromBytes(photoBytes).withUploadProgress((percentage) => {
+          console.log(`Upload progress: ${percentage}%`);
+        });
+
+        // Store the photo in backend
+        await actor.storePhoto(photoId, externalBlob);
+
+        // Submit the complaint with the persistent photo identifier
+        const complaintInput: ComplaintInput = {
+          category: input.category,
+          description: input.description,
+          location: input.location,
+          photoId,
+          publicId: input.publicId,
+        };
+
+        return actor.submitComplaint(complaintInput);
+      } catch (error: any) {
+        const errorMessage = error?.message || 'Failed to upload photo and submit complaint';
+        throw new Error(errorMessage);
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['openComplaints'] });
       queryClient.invalidateQueries({ queryKey: ['complaints'] });
+    },
+    onError: (error: any) => {
+      toast.error('Failed to submit complaint', {
+        description: error.message || 'Please try again',
+      });
     },
   });
 }
@@ -107,20 +128,62 @@ export function useUpdateComplaintStatus() {
     mutationFn: async ({ id, status, afterPhoto }: { id: bigint; status: Status; afterPhoto?: File }) => {
       if (!actor) throw new Error('Actor not available');
 
-      // Note: After photo handling is limited without backend support
-      // The backend doesn't have a field to store after photo URLs
-      if (afterPhoto && status === StatusEnum.resolved) {
-        // We can't store the after photo in the backend currently
-        console.warn('After photo uploaded but backend does not support storing after photo URLs');
-      }
+      try {
+        // If resolving with an after photo, store it first
+        if (afterPhoto && status === StatusEnum.resolved) {
+          // Generate a unique after photo identifier
+          const afterPhotoId = `after-photo-${Date.now()}-${Math.random().toString(36).substring(7)}`;
 
-      await actor.updateStatus(id, status);
+          // Convert File to bytes
+          const photoBytes = new Uint8Array(await afterPhoto.arrayBuffer());
+
+          // Create ExternalBlob with upload progress tracking
+          const externalBlob = ExternalBlob.fromBytes(photoBytes).withUploadProgress((percentage) => {
+            console.log(`After photo upload progress: ${percentage}%`);
+          });
+
+          // Store the after photo in backend
+          await actor.storeAfterPhoto(id, afterPhotoId, externalBlob);
+        }
+
+        // Update the complaint status
+        await actor.updateStatus(id, status);
+      } catch (error: any) {
+        const errorMessage = error?.message || 'Failed to update complaint status';
+        throw new Error(errorMessage);
+      }
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['complaint', variables.id.toString()] });
       queryClient.invalidateQueries({ queryKey: ['openComplaints'] });
       queryClient.invalidateQueries({ queryKey: ['complaints'] });
     },
+    onError: (error: any) => {
+      toast.error('Failed to update status', {
+        description: error.message || 'Please try again',
+      });
+    },
+  });
+}
+
+export function useGetPhotoUrl(photoId: string | null | undefined) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<string | null>({
+    queryKey: ['photoUrl', photoId],
+    queryFn: async () => {
+      if (!actor || !photoId) return null;
+      try {
+        const externalBlob = await actor.fetchAfterPhoto(photoId);
+        return externalBlob.getDirectURL();
+      } catch (error) {
+        console.error('Failed to fetch photo:', error);
+        return null;
+      }
+    },
+    enabled: !!actor && !isFetching && !!photoId,
+    staleTime: 5 * 60 * 1000, // Cache for 5 minutes
+    retry: 1,
   });
 }
 

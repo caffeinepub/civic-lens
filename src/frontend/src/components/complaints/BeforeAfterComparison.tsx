@@ -1,5 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useGetPhotoUrl } from '../../hooks/useQueries';
+import { AlertCircle } from 'lucide-react';
 
 interface BeforeAfterComparisonProps {
   beforePhotoId: string;
@@ -8,6 +11,9 @@ interface BeforeAfterComparisonProps {
 }
 
 export default function BeforeAfterComparison({ beforePhotoId, afterPhotoId, status }: BeforeAfterComparisonProps) {
+  const { data: beforePhotoUrl, isLoading: beforeLoading, isError: beforeError } = useGetPhotoUrl(beforePhotoId);
+  const { data: afterPhotoUrl, isLoading: afterLoading, isError: afterError } = useGetPhotoUrl(afterPhotoId);
+
   return (
     <div className="space-y-4">
       <h3 className="font-semibold">Photo Evidence</h3>
@@ -20,7 +26,16 @@ export default function BeforeAfterComparison({ beforePhotoId, afterPhotoId, sta
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <img src={beforePhotoId} alt="Before" className="w-full h-64 object-cover rounded-lg" />
+            {beforeLoading ? (
+              <Skeleton className="w-full h-64 rounded-lg" />
+            ) : beforeError || !beforePhotoUrl ? (
+              <div className="w-full h-64 bg-muted rounded-lg flex flex-col items-center justify-center gap-2">
+                <AlertCircle className="h-8 w-8 text-muted-foreground" />
+                <p className="text-sm text-muted-foreground">Failed to load photo</p>
+              </div>
+            ) : (
+              <img src={beforePhotoUrl} alt="Before" className="w-full h-64 object-cover rounded-lg" />
+            )}
           </CardContent>
         </Card>
 
@@ -37,7 +52,16 @@ export default function BeforeAfterComparison({ beforePhotoId, afterPhotoId, sta
           </CardHeader>
           <CardContent>
             {afterPhotoId ? (
-              <img src={afterPhotoId} alt="After" className="w-full h-64 object-cover rounded-lg" />
+              afterLoading ? (
+                <Skeleton className="w-full h-64 rounded-lg" />
+              ) : afterError || !afterPhotoUrl ? (
+                <div className="w-full h-64 bg-muted rounded-lg flex flex-col items-center justify-center gap-2">
+                  <AlertCircle className="h-8 w-8 text-muted-foreground" />
+                  <p className="text-sm text-muted-foreground">Failed to load photo</p>
+                </div>
+              ) : (
+                <img src={afterPhotoUrl} alt="After" className="w-full h-64 object-cover rounded-lg" />
+              )
             ) : (
               <div className="w-full h-64 bg-muted rounded-lg flex items-center justify-center">
                 <p className="text-sm text-muted-foreground">After photo pending</p>

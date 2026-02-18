@@ -26,6 +26,7 @@ export interface Complaint {
   'priorityScore' : PriorityScore,
   'escalatedAt' : [] | [bigint],
   'reporter' : Principal,
+  'afterPhotoId' : [] | [string],
   'dueAt' : bigint,
   'location' : string,
   'photoId' : string,
@@ -41,6 +42,7 @@ export interface ComplaintResponse {
   'complaint' : Complaint,
   'publicId' : string,
 }
+export type ExternalBlob = Uint8Array;
 export interface Feedback {
   'comment' : string,
   'rating' : [] | [bigint],
@@ -96,12 +98,15 @@ export interface _SERVICE {
   >,
   'duplicateCheck' : ActorMethod<[string], boolean>,
   'eskalacijaPrijave' : ActorMethod<[bigint], undefined>,
+  'fetchAfterPhoto' : ActorMethod<[string], ExternalBlob>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
   'getComplaint' : ActorMethod<[bigint], [] | [Complaint]>,
   'getComplaintsByStatus' : ActorMethod<[Status], Array<Complaint>>,
   'getOpenComplaints' : ActorMethod<[], Array<Complaint>>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'publicComplaintId' : ActorMethod<[bigint], string>,
+  'storeAfterPhoto' : ActorMethod<[bigint, string, ExternalBlob], undefined>,
+  'storePhoto' : ActorMethod<[string, ExternalBlob], undefined>,
   'submitComplaint' : ActorMethod<[ComplaintInput], ComplaintResponse>,
   'timeLeft' : ActorMethod<[bigint], bigint>,
   'updateStatus' : ActorMethod<[bigint, Status], undefined>,

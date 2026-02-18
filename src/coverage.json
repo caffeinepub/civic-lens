@@ -1,59 +1,81 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T01:35:17.406Z",
+  "generatedAt": "2026-02-18T01:45:33.613Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 4,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-28",
-        "summary": "Remove the password registration (\"Create Your Password\") step from the authenticated onboarding flow so users are no longer prompted to create a password after signing in with Internet Identity.",
+        "id": "REQ-30",
+        "summary": "Implement persistent photo storage in the Motoko backend so uploaded complaint photos are stored in-canister (not as frontend-only blob/object URLs) and can be retrieved later for display.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-31",
+        "summary": "Update complaint creation so the citizen \"before\" photo is actually uploaded/stored using the backend photo storage, and only then the complaint is created referencing the persistent photo identifier (instead of using URL.createObjectURL).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/auth/ProfileSetupModal.tsx",
-          "frontend/src/components/auth/ProfileSetupModal.types.ts",
-          "frontend/src/components/layout/AppLayout.tsx"
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/backend.d.ts"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/auth/ProfileSetupModal.tsx",
-          "frontend/src/components/auth/ProfileSetupModal.types.ts",
-          "frontend/src/components/layout/AppLayout.tsx"
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/backend.d.ts"
         ]
       },
       {
-        "id": "REQ-29",
-        "summary": "Keep password verification behavior only for users who already have a password registered: if the backend reports that a password exists for the signed-in principal and the session is not verified, show the verification modal; otherwise do not show any password-related UI.",
+        "id": "REQ-32",
+        "summary": "Fix photo rendering across the UI by replacing any direct <img src={photoId}> usage that assumes photoId is a browser blob/object URL, so that complaint photos are rendered from backend-stored photo data (before photo and, when available, after photo).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/auth/ProfileSetupModal.tsx",
-          "frontend/src/components/auth/LoginButton.tsx",
-          "frontend/src/components/layout/AppLayout.tsx"
+          "frontend/src/components/complaints/BeforeAfterComparison.tsx",
+          "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/components/auth/ProfileSetupModal.tsx",
-          "frontend/src/components/layout/AppLayout.tsx"
+          "frontend/src/components/complaints/BeforeAfterComparison.tsx",
+          "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
+          "frontend/src/hooks/useQueries.ts"
+        ]
+      },
+      {
+        "id": "REQ-33",
+        "summary": "Add backend and frontend support for uploading and persisting the official \"after\" photo when resolving a complaint, and store a persistent after-photo identifier on the complaint so before/after comparison can display both images after refresh.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
+          "frontend/src/backend.d.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useQueries.ts",
+          "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
+          "frontend/src/backend.d.ts"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/components/auth/ProfileSetupModal.tsx",
-    "frontend/src/components/auth/ProfileSetupModal.types.ts",
-    "frontend/src/components/layout/AppLayout.tsx",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/complaints/BeforeAfterComparison.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/complaints/ComplaintDetailPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
