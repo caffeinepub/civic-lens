@@ -1,9 +1,9 @@
 {
-  "frontend/src/App.tsx": "Main application component with optional password flow integration that conditionally shows ProfileSetupModal only when backend password methods are available and user needs registration or verification.",
+  "frontend/src/App.tsx": "Main application component that shows password verification modal only when user has a registered password and hasn't verified in the current session; users without passwords are treated as fully authenticated after Internet Identity login.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including password management hooks that gracefully handle missing backend methods by checking if they exist before calling, returning safe defaults when not implemented.",
   "frontend/src/components/auth/LoginButton.tsx": "Authentication control that clears password verification state on logout in addition to Internet Identity and query cache clearing.",
-  "frontend/src/components/auth/ProfileSetupModal.tsx": "Fully functional modal component supporting both password registration (with confirmation and validation) and password verification modes, with loading states and error feedback.",
-  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper that gates authenticated navigation based on both Internet Identity authentication and password verification status, with header navigation and no footer.",
+  "frontend/src/components/auth/ProfileSetupModal.tsx": "Password verification modal that prompts users to enter their existing password to continue using the application; all password registration UI has been removed.",
+  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper that gates authenticated navigation based on Internet Identity authentication and optional password verification (only required when user has a registered password).",
   "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, workflow explanation, and call-to-action areas that display Google/Apple sign-in options for unauthenticated users instead of generic login buttons.",
   "frontend/src/pages/citizen/SubmitComplaintPage.tsx": "Complaint submission form with category selection, location, description, and photo upload; shows an alert with Google/Apple sign-in options when user is not authenticated.",
   "frontend/src/pages/citizen/MyReportsPage.tsx": "Citizen dashboard displaying all submitted complaints with status, priority, and SLA information.",
@@ -24,5 +24,5 @@
   "frontend/src/components/auth/SignInOptions.tsx": "Reusable component that displays two sign-in buttons labeled \"Continue with Google\" and \"Continue with Apple\", both triggering the existing Internet Identity login flow with shared loading state and proper hook usage at component top level.",
   "frontend/src/backend.d.ts": "Extended TypeScript interface definitions for the backend actor, adding password-related methods (hasPasswordRegistered, registerPassword, verifyPassword) to support authentication flow.",
   "frontend/src/hooks/usePasswordVerification.ts": "Client-side session state manager using sessionStorage to track password verification status across the current browser session with helpers to set and clear verification state.",
-  "frontend/src/components/auth/ProfileSetupModal.types.ts": "Type definitions and constants for the password modal including mode union type (registration/verification) and minimum password length constant."
+  "frontend/src/components/auth/ProfileSetupModal.types.ts": "Type definitions for the password verification modal with simplified props interface (mode removed)."
 }

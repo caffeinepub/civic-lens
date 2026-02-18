@@ -1,48 +1,58 @@
 {
   "kind": "build_request",
-  "title": "Remove entire bottom/footer area from website",
+  "title": "Remove the \"Create Your Password\" registration section from onboarding",
   "projectName": "Civic Lens",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-27",
-      "text": "Remove the entire bottom-of-website footer area from the app layout so no footer content (e.g., copyright text, external links/icons, borders, or footer padding) appears on any page.",
+      "id": "REQ-28",
+      "text": "Remove the password registration (\"Create Your Password\") step from the authenticated onboarding flow so users are no longer prompted to create a password after signing in with Internet Identity.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-5"
         ],
         "quotes": [
-          "Can you remove everything in the bottom of website"
+          "Remove the create your password section"
         ]
       },
       "acceptanceCriteria": [
-        "The <footer> section currently rendered in frontend/src/components/layout/AppLayout.tsx is removed (or not rendered) so no footer content appears at the bottom of any route.",
-        "After the change, there is no visible bottom border/top border line, footer spacing, or reserved footer area beneath the main content; pages end cleanly at the bottom of their content.",
-        "No backend changes are required and no authenticated/unauthenticated navigation behavior is altered."
+        "After a user signs in, the app does not open any modal or section titled \"Create Your Password\".",
+        "Users who do not have a password registered are not blocked from accessing authenticated actions (e.g., navigating to Submit, dashboards) due to password registration.",
+        "No user-facing text anywhere in the UI instructs users to create a password (e.g., \"Create Your Password\", \"Create Password\", or registration descriptions)."
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "text": "Keep password verification behavior only for users who already have a password registered: if the backend reports that a password exists for the signed-in principal and the session is not verified, show the verification modal; otherwise do not show any password-related UI.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Remove the create your password section"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If hasPasswordRegistered returns true and the session is not verified, the app shows only the password verification modal (e.g., \"Enter Your Password\") and requires successful verification to proceed.",
+        "If hasPasswordRegistered returns false, the app does not show any password modal and does not require verification.",
+        "Logout continues to clear any password verification state (sessionStorage) as it does today."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Keep the existing single-actor Motoko backend architecture unchanged."
+    "Do not modify any files under frontend/src/components/ui or any frontend immutable paths listed in SYSTEM_CONTEXT.",
+    "Do not introduce external authentication providers; continue using Internet Identity behind the scenes.",
+    "Use English for all user-facing text."
   ],
   "nonGoals": [
-    "Do not redesign the header/navigation or change routing.",
-    "Do not change authentication, complaint workflows, or any backend APIs/state."
+    "Do not add or change backend password storage/verification APIs in this request.",
+    "Do not redesign the overall authentication UI beyond removing the password creation/registration section.",
+    "Do not change complaint submission, escalation, or dashboard workflows."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

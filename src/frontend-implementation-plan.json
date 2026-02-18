@@ -1,21 +1,67 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove global footer from app layout",
+  "title": "Remove password registration step from onboarding while preserving existing-password verification",
   "requirements": [
     {
-      "id": "REQ-27",
-      "summary": "Remove the footer from the global AppLayout so no footer content, borders, or spacing appears on any page.",
+      "id": "REQ-28",
+      "summary": "Remove the password registration (\"Create Your Password\") step so users are never prompted to create a password after Internet Identity sign-in.",
       "acceptanceCriteria": [
-        "The <footer> section currently rendered in frontend/src/components/layout/AppLayout.tsx is removed (or not rendered) so no footer content appears at the bottom of any route.",
-        "After the change, there is no visible bottom border/top border line, footer spacing, or reserved footer area beneath the main content; pages end cleanly at the bottom of their content.",
-        "No backend changes are required and no authenticated/unauthenticated navigation behavior is altered."
+        "After a user signs in, the app does not open any modal or section titled \"Create Your Password\".",
+        "Users who do not have a password registered are not blocked from accessing authenticated actions (e.g., navigating to Submit, dashboards) due to password registration.",
+        "No user-facing text anywhere in the UI instructs users to create a password (e.g., \"Create Your Password\", \"Create Password\", or registration descriptions)."
       ],
       "file_operations": [
         {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Update the post-login password modal gating logic to never open a password registration modal when the backend reports no password is registered; only consider opening a verification modal when a password exists and the session is not verified."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Remove the registration mode UI and all user-facing registration copy (e.g., titles/descriptions/buttons for creating a password). Keep only the password verification UI (\"Enter Your Password\") for the remaining flow."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.types.ts",
+          "operation": "modify",
+          "description": "Update modal types/props to eliminate the registration mode from the supported modal modes so it cannot be invoked by the app and no registration strings remain reachable."
+        },
+        {
           "path": "frontend/src/components/layout/AppLayout.tsx",
           "operation": "modify",
-          "description": "Remove (or conditionally do not render) the entire <footer> block, including its border/padding and any layout behaviors that reserve footer space (e.g., mt-auto), ensuring the layout ends after <main> content on all routes."
+          "description": "Adjust authenticated navigation gating so users without a registered password are treated as fully authenticated after Internet Identity login (do not require password verification to see/enter authenticated areas when hasPasswordRegistered is false)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "summary": "Show password verification UI only for principals with an existing registered password; otherwise show no password-related UI and do not require verification.",
+      "acceptanceCriteria": [
+        "If hasPasswordRegistered returns true and the session is not verified, the app shows only the password verification modal (e.g., \"Enter Your Password\") and requires successful verification to proceed.",
+        "If hasPasswordRegistered returns false, the app does not show any password modal and does not require verification.",
+        "Logout continues to clear any password verification state (sessionStorage) as it does today."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Ensure the modal decision logic is strictly: (1) if hasPasswordRegistered is true and not session-verified, open verification modal; (2) otherwise, do not open any password-related modal. Remove any behavior that opens registration when hasPasswordRegistered is false."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupModal.tsx",
+          "operation": "modify",
+          "description": "Ensure the modal only performs password verification using existing verification behavior; remove any password registration mutation paths and related validation/copy so the only password flow is verification for existing-password users."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Verify logout behavior continues to clear password verification state via usePasswordVerification.clearVerification() before clearing identity and query cache, preserving existing sessionStorage clearing behavior."
+        },
+        {
+          "path": "frontend/src/components/layout/AppLayout.tsx",
+          "operation": "modify",
+          "description": "Incorporate hasPasswordRegistered + session verification state so that route navigation links are blocked only when a password exists and is not verified; otherwise allow normal authenticated navigation. Ensure no password UI is shown when hasPasswordRegistered is false."
         }
       ]
     }

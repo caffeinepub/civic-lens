@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 15,
+  "projectStateVersion": 17,
   "summary": "Build “Civic Lens”: a civic-issue reporting website where citizens upload problem photos, complaints are deduplicated, routed to officials with a 72-hour SLA and escalation workflow, include AI-based priority scoring, citizen feedback/confirmation, and before/after photo verification.",
   "architectural_notes": [
     "Project name: Civic Lens",
@@ -10,7 +10,8 @@
     "Terminology/UI copy: remove the word \"SLA\" from the website; use alternative wording (e.g., \"72-hour deadline\" or \"response time\") instead.",
     "Authentication/login providers must be limited to Google and Apple accounts only.",
     "User requested password-based registration/login, which conflicts with existing requirement to limit authentication providers to Google and Apple only; needs product decision.",
-    "User request: remove everything in the bottom of the website (entire footer content/area), not only the existing watermark text/link."
+    "User request: remove everything in the bottom of the website (entire footer content/area), not only the existing watermark text/link.",
+    "User request: remove the \"Create your password\" section from the website/auth UI."
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -198,6 +199,22 @@
         "REQ-27"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-the-password-registration-create-your-password-step-from-the-authenticated-onboarding-flow-so-users-are-no-longer-prompted-to-create-a-password-after-signing-in-with-internet-identity",
+      "title": "Remove the password registration (\"Create Your Password\") step from the authenticated onboarding flow so users are no longer prompted to create a password after signing in with Internet Identity.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-keep-password-verification-behavior-only-for-users-who-already-have-a-password-registered-if-the-backend-reports-that-a-password-exists-for-the-signed-in-principal-and-the-session-is-not-verified-show-the-verification-modal-otherwise-do-not-show-any-password-related-ui",
+      "title": "Keep password verification behavior only for users who already have a password registered: if the backend reports that a password exists for the signed-in principal and the session is not verified, show the verification modal; otherwise do not show any password-related UI.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -314,6 +331,12 @@
     {
       "id": "AR-18",
       "summary": "Remove all content from the bottom of the website (clear/remove the entire footer area, not just the watermark)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Remove the \"Create your password\" section from the authentication/onboarding UI flow",
       "reqIds": [],
       "status": "pending"
     }

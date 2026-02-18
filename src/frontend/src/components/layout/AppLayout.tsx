@@ -1,6 +1,6 @@
 import { Link, useRouterState } from '@tanstack/react-router';
 import { useInternetIdentity } from '../../hooks/useInternetIdentity';
-import { useIsCallerAdmin } from '../../hooks/useQueries';
+import { useIsCallerAdmin, useHasPasswordRegistered } from '../../hooks/useQueries';
 import { usePasswordVerification } from '../../hooks/usePasswordVerification';
 import LoginButton from '../auth/LoginButton';
 import { Menu, FileText, Home, Upload, Shield, AlertTriangle } from 'lucide-react';
@@ -10,10 +10,15 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { identity } = useInternetIdentity();
   const { data: isAdmin } = useIsCallerAdmin();
+  const { data: hasPassword } = useHasPasswordRegistered();
   const { isVerified } = usePasswordVerification();
   const router = useRouterState();
   const isAuthenticated = !!identity;
-  const isFullyAuthenticated = isAuthenticated && isVerified;
+  
+  // User is fully authenticated if:
+  // 1. They have an Internet Identity, AND
+  // 2. Either they don't have a password registered, OR they have verified their password
+  const isFullyAuthenticated = isAuthenticated && (!hasPassword || isVerified);
 
   const currentPath = router.location.pathname;
 

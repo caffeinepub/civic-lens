@@ -1,22 +1,24 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T01:27:13.789Z",
-  "summary": "REQ-27 appears implemented: AppLayout no longer renders any <footer> element, leaving only header and main content. However, two additional non-requested metadata/state files were modified.",
+  "generatedAt": "2026-02-18T01:35:17.403Z",
+  "summary": "The diff updates the app to only show a password *verification* modal when a user already has a registered password and is not yet verified in-session, and it gates authenticated navigation/actions accordingly. It also removes/avoids any apparent password *registration* (“Create Your Password”) step in the shown code paths. However, the diff also includes documentation/summaries describing unrelated Google/Apple sign-in UI changes that were not requested.",
   "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Updated/added extensive project metadata and feature summaries unrelated to removing the footer (e.g., descriptions of password verification gating, Google/Apple sign-in options, SLA/escalation wording).",
-      "reason": "BuildRequest only asked to remove the footer area in AppLayout; changes to repository summary/state documentation were not requested.",
+      "description": "User-facing Google/Apple sign-in options shown on Landing and Submit pages for unauthenticated users.",
+      "reason": "The BuildRequest explicitly focuses on removing the password registration step and preserving conditional password verification; it does not request adding/changing login providers or UI to show Google/Apple sign-in options.",
       "evidence": [
-        "frontend-file-summaries.txt",
-        "project_state.json"
+        "frontend-file-summaries.txt (truncated) — mentions LandingPage displaying Google/Apple sign-in options and SubmitComplaintPage showing an alert with Google/Apple sign-in options"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
+    "frontend/src/App.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.tsx",
+    "frontend/src/components/auth/ProfileSetupModal.types.ts",
     "frontend/src/components/layout/AppLayout.tsx",
     "project_state.json"
   ]

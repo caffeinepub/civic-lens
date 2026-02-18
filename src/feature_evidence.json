@@ -2,9 +2,12 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-entire-bottom-of-website-footer-area-from-the-app-layout-so-no-footer-content-e-g-copyright-text-external-links-icons-borders-or-footer-padding-appears-on-any-page",
-      "featureTitle": "Remove the entire bottom-of-website footer area from the app layout so no footer content (e.g., copyright text, external links/icons, borders, or footer padding) appears on any page.",
+      "featureId": "feature-remove-the-password-registration-create-your-password-step-from-the-authenticated-onboarding-flow-so-users-are-no-longer-prompted-to-create-a-password-after-signing-in-with-internet-identity",
+      "featureTitle": "Remove the password registration (\"Create Your Password\") step from the authenticated onboarding flow so users are no longer prompted to create a password after signing in with Internet Identity.",
       "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.types.ts",
         "frontend/src/components/layout/AppLayout.tsx"
       ],
       "components": [
@@ -17,7 +20,29 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-27"
+        "REQ-28"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-keep-password-verification-behavior-only-for-users-who-already-have-a-password-registered-if-the-backend-reports-that-a-password-exists-for-the-signed-in-principal-and-the-session-is-not-verified-show-the-verification-modal-otherwise-do-not-show-any-password-related-ui",
+      "featureTitle": "Keep password verification behavior only for users who already have a password registered: if the backend reports that a password exists for the signed-in principal and the session is not verified, show the verification modal; otherwise do not show any password-related UI.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/ProfileSetupModal.tsx",
+        "frontend/src/components/layout/AppLayout.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-29"
       ],
       "confidence": "high"
     }

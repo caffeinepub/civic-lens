@@ -10,7 +10,6 @@ import OfficialDashboardPage from './pages/official/OfficialDashboardPage';
 import HigherOfficialDashboardPage from './pages/official/HigherOfficialDashboardPage';
 import ComplaintDetailPage from './pages/complaints/ComplaintDetailPage';
 import ProfileSetupModal from './components/auth/ProfileSetupModal';
-import type { PasswordModalMode } from './components/auth/ProfileSetupModal.types';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from 'next-themes';
 import { useEffect, useState } from 'react';
@@ -87,12 +86,11 @@ export default function App() {
   const { isVerified, markAsVerified } = usePasswordVerification();
 
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<PasswordModalMode>('registration');
 
   const isAuthenticated = !!identity;
 
-  // Determine if we should show the password modal
-  // Note: Password feature is optional until backend is updated
+  // Determine if we should show the password verification modal
+  // Only show if user has a password registered and hasn't verified in this session
   useEffect(() => {
     if (!isAuthenticated) {
       setModalOpen(false);
@@ -107,43 +105,28 @@ export default function App() {
       return;
     }
 
-    // Only show password modal if backend supports it (hasPassword will be true/false, not undefined)
-    // If hasPassword is false (no password set), backend supports passwords
-    if (hasPassword === false) {
-      setModalMode('registration');
-      setModalOpen(true);
-      return;
-    }
-
-    // User has a password but hasn't verified in this session
+    // Only show verification modal if user has a password and hasn't verified
     if (hasPassword === true && !isVerified) {
-      setModalMode('verification');
       setModalOpen(true);
       return;
     }
 
-    // User is fully authenticated and verified (or password feature not enabled)
+    // User is fully authenticated (either no password required or already verified)
     setModalOpen(false);
   }, [isAuthenticated, hasPassword, isVerified, roleLoading, passwordCheckLoading, passwordCheckFetched]);
 
   const handlePasswordSuccess = () => {
-    if (modalMode === 'registration') {
-      // After registration, move to verification
-      setModalMode('verification');
-    } else {
-      // After verification, mark as verified and close modal
-      markAsVerified();
-      setModalOpen(false);
-    }
+    // After verification, mark as verified and close modal
+    markAsVerified();
+    setModalOpen(false);
   };
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <RouterProvider router={router} />
-      {isAuthenticated && (
+      {isAuthenticated && hasPassword && (
         <ProfileSetupModal
           open={modalOpen}
-          mode={modalMode}
           onSuccess={handlePasswordSuccess}
         />
       )}
