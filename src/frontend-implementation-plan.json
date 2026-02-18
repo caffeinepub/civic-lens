@@ -1,0 +1,34 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Civic Lens — Remove 'SLA' wording from all user-facing UI text",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "summary": "Replace all user-facing occurrences of the term \"SLA\" with alternative wording while keeping the existing 72-hour deadline/timer behavior unchanged.",
+      "acceptanceCriteria": [
+        "No visible UI text contains the substring \"SLA\" (case-insensitive) on the landing page, dashboards, complaint lists, and complaint detail views.",
+        "The landing page copy that currently says \"72-hour SLA\" / \"72-hour SLA guarantee\" is updated to an alternative phrase that does not include \"SLA\" (e.g., \"72-hour response window\").",
+        "The complaint metadata label \"SLA Status\" is updated to an alternative label that does not include \"SLA\" (e.g., \"Deadline status\" or \"Response deadline\").",
+        "The time remaining/overdue indicators continue to display as before (no changes to due dates, timers, escalation behavior, or status logic)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Update landing page user-facing copy to remove the term \"SLA\" (e.g., replace \"72-hour SLA guarantee\" and the \"2. 72-Hour SLA\" step title) while keeping the communicated 72-hour response/deadline concept intact. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/complaints/ComplaintMetaCard.tsx",
+          "operation": "modify",
+          "description": "Change the complaint metadata label \"SLA Status\" to alternative wording (e.g., \"Response deadline\" / \"Deadline status\") without altering any dueAt usage, timer computations, or escalation semantics. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/pages/official/HigherOfficialDashboardPage.tsx",
+          "operation": "modify",
+          "description": "Replace dashboard copy mentioning \"72-hour SLA\" with equivalent alternative wording (e.g., \"72-hour response window\" / \"72-hour deadline\") while keeping the meaning and dashboard behavior unchanged. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}

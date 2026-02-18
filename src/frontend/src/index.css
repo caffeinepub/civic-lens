@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+        
+        /* Civic-focused color palette - warm earth tones with green accents */
+        --background: 0.98 0.01 60;
+        --foreground: 0.25 0.02 60;
+        
+        --card: 1 0 0;
+        --card-foreground: 0.25 0.02 60;
+        
+        --popover: 1 0 0;
+        --popover-foreground: 0.25 0.02 60;
+        
+        /* Primary: Warm terracotta/brick red for civic authority */
+        --primary: 0.55 0.18 25;
+        --primary-foreground: 0.98 0.01 60;
+        
+        /* Secondary: Warm sand/beige */
+        --secondary: 0.92 0.03 60;
+        --secondary-foreground: 0.25 0.02 60;
+        
+        /* Muted: Light warm gray */
+        --muted: 0.95 0.01 60;
+        --muted-foreground: 0.55 0.02 60;
+        
+        /* Accent: Olive green for civic/environmental theme */
+        --accent: 0.65 0.12 140;
+        --accent-foreground: 0.98 0.01 60;
+        
+        /* Destructive: Deep red for alerts */
+        --destructive: 0.55 0.22 15;
+        --destructive-foreground: 0.98 0.01 60;
+        
+        --border: 0.88 0.02 60;
+        --input: 0.88 0.02 60;
+        --ring: 0.55 0.18 25;
+        
+        --chart-1: 0.65 0.15 140;
+        --chart-2: 0.55 0.18 25;
+        --chart-3: 0.70 0.12 45;
+        --chart-4: 0.60 0.10 180;
+        --chart-5: 0.50 0.20 30;
+    }
+
+    .dark {
+        --background: 0.20 0.02 60;
+        --foreground: 0.95 0.01 60;
+        
+        --card: 0.25 0.02 60;
+        --card-foreground: 0.95 0.01 60;
+        
+        --popover: 0.22 0.02 60;
+        --popover-foreground: 0.95 0.01 60;
+        
+        /* Primary: Lighter terracotta for dark mode */
+        --primary: 0.70 0.15 25;
+        --primary-foreground: 0.20 0.02 60;
+        
+        --secondary: 0.30 0.02 60;
+        --secondary-foreground: 0.95 0.01 60;
+        
+        --muted: 0.30 0.02 60;
+        --muted-foreground: 0.65 0.02 60;
+        
+        /* Accent: Brighter olive for dark mode */
+        --accent: 0.75 0.12 140;
+        --accent-foreground: 0.20 0.02 60;
+        
+        --destructive: 0.60 0.20 15;
+        --destructive-foreground: 0.95 0.01 60;
+        
+        --border: 0.35 0.02 60;
+        --input: 0.35 0.02 60;
+        --ring: 0.70 0.15 25;
+        
+        --chart-1: 0.70 0.15 140;
+        --chart-2: 0.70 0.15 25;
+        --chart-3: 0.75 0.12 45;
+        --chart-4: 0.65 0.10 180;
+        --chart-5: 0.60 0.18 30;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "build_request",
+  "title": "Remove 'SLA' wording from all user-facing UI text",
+  "projectName": "Civic Lens",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-14",
+      "text": "Remove the word \"SLA\" from all user-facing text across the Civic Lens website, while keeping the 72-hour deadline functionality intact and communicating the same concept using alternative wording (e.g., \"72-hour response window\", \"Deadline\", \"Time remaining\", \"Due by\").",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7"
+        ],
+        "quotes": [
+          "Can you remove the sla word from the website"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No visible UI text contains the substring \"SLA\" (case-insensitive) on the landing page, dashboards, complaint lists, and complaint detail views.",
+        "The landing page copy that currently says \"72-hour SLA\" / \"72-hour SLA guarantee\" is updated to an alternative phrase that does not include \"SLA\" (e.g., \"72-hour response window\").",
+        "The complaint metadata label \"SLA Status\" is updated to an alternative label that does not include \"SLA\" (e.g., \"Deadline status\" or \"Response deadline\").",
+        "The time remaining/overdue indicators continue to display as before (no changes to due dates, timers, escalation behavior, or status logic)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not change backend data fields (e.g., dueAt) or the 72-hour deadline/escalation logic; this is a terminology/copy-only change.",
+    "Do not modify files under frontend/src/components/ui (compose existing components instead)."
+  ],
+  "nonGoals": [
+    "Renaming internal component filenames/identifiers such as SlaBadge (only user-facing text must change).",
+    "Changing the 72-hour deadline duration or how overdue/escalation is computed."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

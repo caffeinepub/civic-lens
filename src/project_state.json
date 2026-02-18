@@ -1,0 +1,188 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Build “Civic Lens”: a civic-issue reporting website where citizens upload problem photos, complaints are deduplicated, routed to officials with a 72-hour SLA and escalation workflow, include AI-based priority scoring, citizen feedback/confirmation, and before/after photo verification.",
+  "architectural_notes": [
+    "Project name: Civic Lens",
+    "Core workflow includes 72-hour SLA with escalation to higher official upon breach",
+    "Complaints require photo evidence and support before/after verification",
+    "System should prevent duplicate complaints (deduplication required)",
+    "Terminology/UI copy: remove the word \"SLA\" from the website; use alternative wording (e.g., \"72-hour deadline\" or \"response time\") instead."
+  ],
+  "known_issues": [],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-authentication-flow-and-role-handling-so-that-users-can-act-as-citizen-official-or-higher-official-within-the-app",
+      "title": "Implement Internet Identity authentication flow and role handling so that users can act as Citizen, Official, or Higher Official within the app.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-citizen-complaint-submission-ui-with-photo-upload-before-photo-category-selection-and-description-on-submit-create-a-complaint-in-the-backend",
+      "title": "Add citizen complaint submission UI with photo upload (before photo), category selection, and description; on submit, create a complaint in the backend.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-72-hour-sla-deadline-on-each-new-complaint-and-display-remaining-time-in-citizen-and-official-views",
+      "title": "Implement a 72-hour SLA deadline on each new complaint and display remaining time in citizen and official views.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-escalation-workflow-if-a-complaint-is-not-marked-resolved-within-72-hours-it-is-escalated-to-higher-official-review-and-is-clearly-flagged-in-dashboards",
+      "title": "Implement escalation workflow: if a complaint is not marked Resolved within 72 hours, it is escalated to Higher Official review and is clearly flagged in dashboards.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-official-workflow-ui-to-receive-review-and-manage-complaints-view-queue-open-complaint-details-set-status-inprogress-and-mark-resolved-with-after-photo-upload",
+      "title": "Add official workflow UI to receive, review, and manage complaints: view queue, open complaint details, set status InProgress, and mark Resolved with after photo upload.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-citizen-confirmation-feedback-flow-once-a-complaint-is-marked-resolved-the-reporting-citizen-can-confirm-resolution-or-flag-as-not-resolved-with-optional-comment-and-rating",
+      "title": "Add citizen confirmation feedback flow: once a complaint is marked Resolved, the reporting citizen can confirm resolution or flag as not resolved, with optional comment and rating.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-duplicate-complaint-prevention-by-checking-new-submissions-against-existing-open-complaints-and-blocking-or-warning-on-likely-duplicates",
+      "title": "Implement duplicate complaint prevention by checking new submissions against existing open complaints and blocking or warning on likely duplicates.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-ai-priority-score-field-computed-at-submission-time-and-displayed-in-all-dashboards-using-an-on-chain-heuristic-scoring-model-no-external-ai-services",
+      "title": "Add an 'AI priority score' field computed at submission time and displayed in all dashboards, using an on-chain heuristic scoring model (no external AI services).",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-before-after-photo-comparison-presentation-show-before-and-after-images-side-by-side-or-slider-on-the-complaint-detail-page-once-resolved-and-require-both-for-verification-flow",
+      "title": "Implement before/after photo comparison presentation: show before and after images side-by-side (or slider) on the complaint detail page once resolved, and require both for verification flow.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-coherent-civic-focused-visual-theme-colors-typography-spacing-and-components-and-apply-it-consistently-across-the-public-landing-page-citizen-submission-flow-and-official-dashboards-avoid-blue-purple",
+      "title": "Create a coherent, civic-focused visual theme (colors, typography, spacing, and components) and apply it consistently across the public landing page, citizen submission flow, and official dashboards (avoid blue/purple).",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-project-documentation-with-step-by-step-instructions-to-open-run-and-deploy-the-civic-lens-project-in-vs-code-including-local-internet-computer-startup-canister-deployment-and-common-troubleshooting-notes",
+      "title": "Add project documentation with step-by-step instructions to open, run, and deploy the Civic Lens project in VS Code, including local Internet Computer startup, canister deployment, and common troubleshooting notes.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-include-a-small-set-of-static-brand-ux-images-and-render-them-in-the-frontend-as-static-assets-from-frontend-public-assets-generated",
+      "title": "Generate and include a small set of static brand/UX images and render them in the frontend as static assets from frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-word-sla-from-all-user-facing-text-across-the-civic-lens-website-while-keeping-the-72-hour-deadline-functionality-intact-and-communicating-the-same-concept-using-alternative-wording-e-g-72-hour-response-window-deadline-time-remaining-due-by",
+      "title": "Remove the word \"SLA\" from all user-facing text across the Civic Lens website, while keeping the 72-hour deadline functionality intact and communicating the same concept using alternative wording (e.g., \"72-hour response window\", \"Deadline\", \"Time remaining\", \"Due by\").",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Citizen complaint submission with photo upload (e.g., potholes, garbage issues)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Government official workflow to receive, manage, and resolve complaints",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "72-hour deadline/SLA tracking for each complaint",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Automatic escalation to higher officials when not completed within 72 hours",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "AI-generated priority score for complaints",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Citizen confirmation/feedback after resolution",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Duplicate complaint prevention/deduplication",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Before-and-after photo submission and verification for completed issues",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Provide step-by-step procedure to set up and run the project in VS Code, with a Civic Lens project folder structure",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Create core data model and backend APIs for civic complaints, including creation, retrieval, status updates, and audit fields (createdAt, updatedAt) suitable for a citizen-to-official workflow.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Civic Lens",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

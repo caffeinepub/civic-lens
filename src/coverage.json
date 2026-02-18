@@ -1,0 +1,44 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-18T00:42:50.535Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 1,
+    "implemented": 1,
+    "items": [
+      {
+        "id": "REQ-14",
+        "summary": "Remove the word \"SLA\" from all user-facing text across the Civic Lens website, while keeping the 72-hour deadline functionality intact and communicating the same concept using alternative wording (e.g., \"72-hour response window\", \"Deadline\", \"Time remaining\", \"Due by\").",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/LandingPage.tsx",
+          "frontend/src/components/complaints/ComplaintMetaCard.tsx",
+          "frontend/src/pages/official/HigherOfficialDashboardPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/LandingPage.tsx",
+          "frontend/src/components/complaints/ComplaintMetaCard.tsx",
+          "frontend/src/pages/official/HigherOfficialDashboardPage.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/components/complaints/ComplaintMetaCard.tsx",
+    "frontend/src/pages/LandingPage.tsx",
+    "frontend/src/pages/official/HigherOfficialDashboardPage.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}
