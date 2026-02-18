@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
+  "projectStateVersion": 7,
   "summary": "Build “Civic Lens”: a civic-issue reporting website where citizens upload problem photos, complaints are deduplicated, routed to officials with a 72-hour SLA and escalation workflow, include AI-based priority scoring, citizen feedback/confirmation, and before/after photo verification.",
   "architectural_notes": [
     "Project name: Civic Lens",
@@ -10,7 +10,7 @@
     "Terminology/UI copy: remove the word \"SLA\" from the website; use alternative wording (e.g., \"72-hour deadline\" or \"response time\") instead."
   ],
   "known_issues": [],
-  "isFixRequest": true,
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-authentication-flow-and-role-handling-so-that-users-can-act-as-citizen-official-or-higher-official-within-the-app",
@@ -115,6 +115,30 @@
         "REQ-14"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-the-docs-section-from-the-primary-navigation-so-users-no-longer-see-a-docs-nav-item-in-the-header-navigation-or-mobile-drawer",
+      "title": "Remove the Docs section from the primary navigation so users no longer see a \"Docs\" nav item in the header navigation or mobile drawer.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-learn-more-section-link-from-the-landing-page-hero-area-so-the-landing-page-no-longer-displays-a-button-or-link-that-routes-users-to-documentation",
+      "title": "Remove the \"Learn More\" section/link from the landing page hero area so the landing page no longer displays a button or link that routes users to documentation.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-docs-route-from-the-application-routing-so-the-documentation-page-is-no-longer-accessible-via-in-app-navigation-routes",
+      "title": "Remove the /docs route from the application routing so the documentation page is no longer accessible via in-app navigation routes.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -178,6 +202,12 @@
       "reqIds": [
         "REQ-1"
       ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Remove the Docs section and the Learn More section from the website UI/navigation",
+      "reqIds": [],
       "status": "pending"
     }
   ],

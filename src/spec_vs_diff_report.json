@@ -1,26 +1,16 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T00:42:50.531Z",
-  "summary": "REQ-14 is partially implemented: some user-facing \"SLA\" text was replaced (e.g., LandingPage workflow step title, HigherOfficialDashboardPage description, and ComplaintMetaCard label). However, evidence in the diff summary indicates remaining user-facing \"SLA\" wording still exists in other UI areas (notably the citizen dashboard and the SlaBadge component), so the requirement to remove \"SLA\" across landing page, dashboards, complaint lists, and detail views is not fully satisfied.",
-  "missing_requirements": [
-    {
-      "id": "REQ-14",
-      "requirement": "Remove the word \"SLA\" from all user-facing text across the Civic Lens website (case-insensitive), including dashboards/complaint lists/detail views, while keeping the 72-hour deadline/escalation logic intact.",
-      "reason": "The diff updates some copy, but the diff summary indicates at least two areas still explicitly present \"SLA\" in user-facing UI: (1) the citizen dashboard page is described as displaying \"SLA information\" and was not modified in the provided diffs, and (2) the SlaBadge component is described as displaying \"SLA deadline status\" and was not modified. This violates the AC that no visible UI text contains the substring \"SLA\".",
-      "evidence": [
-        "frontend-file-summaries.txt (\"frontend/src/pages/citizen/MyReportsPage.tsx\": \"Citizen dashboard ... and SLA information.\")",
-        "frontend-file-summaries.txt (\"frontend/src/components/complaints/SlaBadge.tsx\": \"Badge component displaying SLA deadline status ...\")"
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-18T00:48:54.091Z",
+  "summary": "All requested UI/navigation removals appear implemented: the Docs nav item is absent from the shared NavLinks used by both header and mobile drawer; the landing hero no longer includes a “Learn More” link/button; and the router configuration in App.tsx no longer registers a /docs route.",
+  "missing_requirements": [],
   "hallucinated_features": [],
-  "confidence": 0.72,
+  "confidence": 0.78,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/components/complaints/ComplaintMetaCard.tsx",
+    "frontend/src/App.tsx",
+    "frontend/src/components/layout/AppLayout.tsx",
     "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/official/HigherOfficialDashboardPage.tsx",
     "project_state.json"
   ]
 }

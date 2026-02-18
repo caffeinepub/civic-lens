@@ -8,7 +8,6 @@ import MyReportsPage from './pages/citizen/MyReportsPage';
 import OfficialDashboardPage from './pages/official/OfficialDashboardPage';
 import HigherOfficialDashboardPage from './pages/official/HigherOfficialDashboardPage';
 import ComplaintDetailPage from './pages/complaints/ComplaintDetailPage';
-import DocsPage from './pages/DocsPage';
 import ProfileSetupModal from './components/auth/ProfileSetupModal';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from 'next-themes';
@@ -61,12 +60,6 @@ const complaintDetailRoute = createRoute({
   component: ComplaintDetailPage,
 });
 
-const docsRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/docs',
-  component: DocsPage,
-});
-
 const routeTree = rootRoute.addChildren([
   indexRoute,
   submitRoute,
@@ -74,7 +67,6 @@ const routeTree = rootRoute.addChildren([
   officialDashboardRoute,
   higherOfficialDashboardRoute,
   complaintDetailRoute,
-  docsRoute,
 ]);
 
 const router = createRouter({ routeTree });

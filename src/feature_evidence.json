@@ -2,12 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-word-sla-from-all-user-facing-text-across-the-civic-lens-website-while-keeping-the-72-hour-deadline-functionality-intact-and-communicating-the-same-concept-using-alternative-wording-e-g-72-hour-response-window-deadline-time-remaining-due-by",
-      "featureTitle": "Remove the word \"SLA\" from all user-facing text across the Civic Lens website, while keeping the 72-hour deadline functionality intact and communicating the same concept using alternative wording (e.g., \"72-hour response window\", \"Deadline\", \"Time remaining\", \"Due by\").",
+      "featureId": "feature-remove-the-docs-section-from-the-primary-navigation-so-users-no-longer-see-a-docs-nav-item-in-the-header-navigation-or-mobile-drawer",
+      "featureTitle": "Remove the Docs section from the primary navigation so users no longer see a \"Docs\" nav item in the header navigation or mobile drawer.",
       "files": [
-        "frontend/src/components/complaints/ComplaintMetaCard.tsx",
-        "frontend/src/pages/LandingPage.tsx",
-        "frontend/src/pages/official/HigherOfficialDashboardPage.tsx"
+        "frontend/src/components/layout/AppLayout.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -19,7 +17,47 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-14"
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-learn-more-section-link-from-the-landing-page-hero-area-so-the-landing-page-no-longer-displays-a-button-or-link-that-routes-users-to-documentation",
+      "featureTitle": "Remove the \"Learn More\" section/link from the landing page hero area so the landing page no longer displays a button or link that routes users to documentation.",
+      "files": [
+        "frontend/src/pages/LandingPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-docs-route-from-the-application-routing-so-the-documentation-page-is-no-longer-accessible-via-in-app-navigation-routes",
+      "featureTitle": "Remove the /docs route from the application routing so the documentation page is no longer accessible via in-app navigation routes.",
+      "files": [
+        "frontend/src/App.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-17"
       ],
       "confidence": "high"
     }

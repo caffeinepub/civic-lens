@@ -57,10 +57,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
         </>
       )}
-      <Link to="/docs" className="flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors">
-        <FileText className="h-4 w-4" />
-        Docs
-      </Link>
     </>
   );
 

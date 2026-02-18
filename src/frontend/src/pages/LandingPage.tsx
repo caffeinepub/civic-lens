@@ -32,9 +32,6 @@ export default function LandingPage() {
                 ) : (
                   <Button size="lg">Get Started</Button>
                 )}
-                <Button asChild variant="outline" size="lg">
-                  <Link to="/docs">Learn More</Link>
-                </Button>
               </div>
             </div>
             <div className="relative">

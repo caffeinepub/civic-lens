@@ -1,36 +1,71 @@
 {
   "kind": "build_request",
-  "title": "Remove 'SLA' wording from all user-facing UI text",
+  "title": "Remove Docs and Learn More sections from UI/navigation",
   "projectName": "Civic Lens",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-14",
-      "text": "Remove the word \"SLA\" from all user-facing text across the Civic Lens website, while keeping the 72-hour deadline functionality intact and communicating the same concept using alternative wording (e.g., \"72-hour response window\", \"Deadline\", \"Time remaining\", \"Due by\").",
+      "id": "REQ-15",
+      "text": "Remove the Docs section from the primary navigation so users no longer see a \"Docs\" nav item in the header navigation or mobile drawer.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-7"
+          "msg-user-1"
         ],
         "quotes": [
-          "Can you remove the sla word from the website"
+          "Can you also remove the docs section and learn more section"
         ]
       },
       "acceptanceCriteria": [
-        "No visible UI text contains the substring \"SLA\" (case-insensitive) on the landing page, dashboards, complaint lists, and complaint detail views.",
-        "The landing page copy that currently says \"72-hour SLA\" / \"72-hour SLA guarantee\" is updated to an alternative phrase that does not include \"SLA\" (e.g., \"72-hour response window\").",
-        "The complaint metadata label \"SLA Status\" is updated to an alternative label that does not include \"SLA\" (e.g., \"Deadline status\" or \"Response deadline\").",
-        "The time remaining/overdue indicators continue to display as before (no changes to due dates, timers, escalation behavior, or status logic)."
+        "The header navigation no longer contains a link labeled \"Docs\".",
+        "The mobile navigation drawer no longer contains a link labeled \"Docs\".",
+        "No other navigation links (Home, Report Issue, My Reports, Official Dashboard, Escalated Issues) are removed or renamed as part of this change."
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Remove the \"Learn More\" section/link from the landing page hero area so the landing page no longer displays a button or link that routes users to documentation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Can you also remove the docs section and learn more section"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The landing page hero no longer shows a button/link labeled \"Learn More\".",
+        "The remaining primary CTA in the hero (e.g., \"Report an Issue\" when authenticated or \"Get Started\" when not authenticated) still renders and works."
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "text": "Remove the /docs route from the application routing so the documentation page is no longer accessible via in-app navigation routes.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-1"
+        ],
+        "quotes": [
+          "Can you also remove the docs section and learn more section"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The router no longer registers a route at path \"/docs\".",
+        "Navigating to \"/docs\" does not render the documentation content page (e.g., it should not resolve to the DocsPage component)."
       ]
     }
   ],
   "constraints": [
-    "Do not change backend data fields (e.g., dueAt) or the 72-hour deadline/escalation logic; this is a terminology/copy-only change.",
-    "Do not modify files under frontend/src/components/ui (compose existing components instead)."
+    "Frontend files under frontend/src/components/ui must not be edited; they must only be composed/used.",
+    "Do not modify any immutable hook entrypoints (frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts) or frontend/src/main.tsx.",
+    "Backend must remain single-actor; no backend changes are required for this request."
   ],
   "nonGoals": [
-    "Renaming internal component filenames/identifiers such as SlaBadge (only user-facing text must change).",
-    "Changing the 72-hour deadline duration or how overdue/escalation is computed."
+    "Do not change complaint workflows, escalation logic, priority scoring, or any backend data model.",
+    "Do not redesign the landing page beyond removing the specified Docs/Learn More UI elements.",
+    "Do not remove project documentation files from the repository unless required for build correctness; the goal is to remove the docs section from the website UI/navigation."
   ],
   "imageRequirements": {
     "required": [],

@@ -1,10 +1,10 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, role-based routing, and theme provider integration for the Civic Lens platform.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup (without /docs route), role-based routing, and theme provider integration for the Civic Lens platform.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations with proper Status enum usage and blob URL handling for photo uploads without external storage dependency.",
   "frontend/src/components/auth/LoginButton.tsx": "Reusable login/logout button component with Internet Identity integration and loading states.",
   "frontend/src/components/auth/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup (placeholder implementation for future user profile feature).",
-  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper with responsive header navigation, role-based menu items, and footer with attribution.",
-  "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, workflow explanation, and call-to-action buttons showcasing the civic reporting process with updated terminology replacing \"SLA\" with \"response window\" and \"response guarantee\".",
+  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper with responsive header navigation (without Docs link), role-based menu items, and footer with attribution.",
+  "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, workflow explanation, and call-to-action button (Learn More button removed) showcasing the civic reporting process.",
   "frontend/src/pages/citizen/SubmitComplaintPage.tsx": "Complaint submission form with category selection, location, description, and required photo upload that properly includes photoId in the mutation input.",
   "frontend/src/pages/citizen/MyReportsPage.tsx": "Citizen dashboard displaying all submitted complaints with status, priority, and SLA information.",
   "frontend/src/pages/official/OfficialDashboardPage.tsx": "Official dashboard with tabbed view of open and in-progress complaints using proper Status enum values from backend.",
