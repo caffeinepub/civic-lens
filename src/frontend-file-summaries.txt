@@ -3,7 +3,7 @@
   "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations including password management hooks that gracefully handle missing backend methods by checking if they exist before calling, returning safe defaults when not implemented.",
   "frontend/src/components/auth/LoginButton.tsx": "Authentication control that clears password verification state on logout in addition to Internet Identity and query cache clearing.",
   "frontend/src/components/auth/ProfileSetupModal.tsx": "Fully functional modal component supporting both password registration (with confirmation and validation) and password verification modes, with loading states and error feedback.",
-  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper that gates authenticated navigation based on both Internet Identity authentication and password verification status, with header navigation and footer without watermark branding.",
+  "frontend/src/components/layout/AppLayout.tsx": "Main layout wrapper that gates authenticated navigation based on both Internet Identity authentication and password verification status, with header navigation and no footer.",
   "frontend/src/pages/LandingPage.tsx": "Landing page with hero section, workflow explanation, and call-to-action areas that display Google/Apple sign-in options for unauthenticated users instead of generic login buttons.",
   "frontend/src/pages/citizen/SubmitComplaintPage.tsx": "Complaint submission form with category selection, location, description, and photo upload; shows an alert with Google/Apple sign-in options when user is not authenticated.",
   "frontend/src/pages/citizen/MyReportsPage.tsx": "Citizen dashboard displaying all submitted complaints with status, priority, and SLA information.",

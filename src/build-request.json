@@ -1,35 +1,35 @@
 {
   "kind": "build_request",
-  "title": "Remove footer watermark branding",
+  "title": "Remove entire bottom/footer area from website",
   "projectName": "Civic Lens",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-26",
-      "text": "Remove the bottom-of-page watermark/branding from the application footer by deleting the “Built with ❤️ using caffeine.ai” text and the caffeine.ai outbound link so it no longer appears on any page.",
+      "id": "REQ-27",
+      "text": "Remove the entire bottom-of-website footer area from the app layout so no footer content (e.g., copyright text, external links/icons, borders, or footer padding) appears on any page.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2"
+          "msg-6"
         ],
         "quotes": [
-          "Can you remove the watermark at the bottom of the page"
+          "Can you remove everything in the bottom of website"
         ]
       },
       "acceptanceCriteria": [
-        "The footer no longer displays any text or links referencing “caffeine.ai”.",
-        "No outbound link to https://caffeine.ai/ is present in the rendered footer DOM across all routes.",
-        "The footer still renders without layout breakage (e.g., copyright and other footer items remain aligned and readable)."
+        "The <footer> section currently rendered in frontend/src/components/layout/AppLayout.tsx is removed (or not rendered) so no footer content appears at the bottom of any route.",
+        "After the change, there is no visible bottom border/top border line, footer spacing, or reserved footer area beneath the main content; pages end cleanly at the bottom of their content.",
+        "No backend changes are required and no authenticated/unauthenticated navigation behavior is altered."
       ]
     }
   ],
   "constraints": [
-    "Do not modify any files under frontend/src/components/ui (shadcn components); compose them instead if needed.",
-    "Keep changes limited to removing the watermark/branding; do not introduce new authentication or complaint workflow behavior."
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep the existing single-actor Motoko backend architecture unchanged."
   ],
   "nonGoals": [
-    "Redesigning the entire footer or landing page layout beyond removing the watermark text/link.",
-    "Changing backend code or data models."
+    "Do not redesign the header/navigation or change routing.",
+    "Do not change authentication, complaint workflows, or any backend APIs/state."
   ],
   "imageRequirements": {
     "required": [],

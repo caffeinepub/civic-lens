@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-remove-the-bottom-of-page-watermark-branding-from-the-application-footer-by-deleting-the-built-with-using-caffeine-ai-text-and-the-caffeine-ai-outbound-link-so-it-no-longer-appears-on-any-page",
-      "featureTitle": "Remove the bottom-of-page watermark/branding from the application footer by deleting the “Built with ❤️ using caffeine.ai” text and the caffeine.ai outbound link so it no longer appears on any page.",
+      "featureId": "feature-remove-the-entire-bottom-of-website-footer-area-from-the-app-layout-so-no-footer-content-e-g-copyright-text-external-links-icons-borders-or-footer-padding-appears-on-any-page",
+      "featureTitle": "Remove the entire bottom-of-website footer area from the app layout so no footer content (e.g., copyright text, external links/icons, borders, or footer padding) appears on any page.",
       "files": [
         "frontend/src/components/layout/AppLayout.tsx"
       ],
@@ -17,7 +17,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-26"
+        "REQ-27"
       ],
       "confidence": "high"
     }

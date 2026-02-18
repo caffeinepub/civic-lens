@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T01:21:11.425Z",
+  "generatedAt": "2026-02-18T01:27:13.792Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -11,8 +11,8 @@
     "implemented": 1,
     "items": [
       {
-        "id": "REQ-26",
-        "summary": "Remove the bottom-of-page watermark/branding from the application footer by deleting the “Built with ❤️ using caffeine.ai” text and the caffeine.ai outbound link so it no longer appears on any page.",
+        "id": "REQ-27",
+        "summary": "Remove the entire bottom-of-website footer area from the app layout so no footer content (e.g., copyright text, external links/icons, borders, or footer padding) appears on any page.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/layout/AppLayout.tsx"

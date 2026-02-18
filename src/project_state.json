@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 13,
+  "projectStateVersion": 15,
   "summary": "Build “Civic Lens”: a civic-issue reporting website where citizens upload problem photos, complaints are deduplicated, routed to officials with a 72-hour SLA and escalation workflow, include AI-based priority scoring, citizen feedback/confirmation, and before/after photo verification.",
   "architectural_notes": [
     "Project name: Civic Lens",
@@ -9,7 +9,8 @@
     "System should prevent duplicate complaints (deduplication required)",
     "Terminology/UI copy: remove the word \"SLA\" from the website; use alternative wording (e.g., \"72-hour deadline\" or \"response time\") instead.",
     "Authentication/login providers must be limited to Google and Apple accounts only.",
-    "User requested password-based registration/login, which conflicts with existing requirement to limit authentication providers to Google and Apple only; needs product decision."
+    "User requested password-based registration/login, which conflicts with existing requirement to limit authentication providers to Google and Apple only; needs product decision.",
+    "User request: remove everything in the bottom of the website (entire footer content/area), not only the existing watermark text/link."
   ],
   "known_issues": [],
   "isFixRequest": false,
@@ -189,6 +190,14 @@
         "REQ-26"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-remove-the-entire-bottom-of-website-footer-area-from-the-app-layout-so-no-footer-content-e-g-copyright-text-external-links-icons-borders-or-footer-padding-appears-on-any-page",
+      "title": "Remove the entire bottom-of-website footer area from the app layout so no footer content (e.g., copyright text, external links/icons, borders, or footer padding) appears on any page.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -299,6 +308,12 @@
     {
       "id": "AR-17",
       "summary": "Remove the watermark displayed at the bottom of the page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Remove all content from the bottom of the website (clear/remove the entire footer area, not just the watermark)",
       "reqIds": [],
       "status": "pending"
     }

@@ -6,7 +6,6 @@ import LoginButton from '../auth/LoginButton';
 import { Menu, FileText, Home, Upload, Shield, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { SiGithub } from 'react-icons/si';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const { identity } = useInternetIdentity();
@@ -100,26 +99,6 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       </header>
 
       <main className="flex-1">{children}</main>
-
-      <footer className="border-t py-8 mt-auto">
-        <div className="container">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>© {new Date().getFullYear()} Civic Lens</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                <SiGithub className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

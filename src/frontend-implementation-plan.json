@@ -1,21 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove footer watermark branding",
+  "title": "Remove global footer from app layout",
   "requirements": [
     {
-      "id": "REQ-26",
-      "summary": "Remove the “Built with ❤️ using caffeine.ai” watermark text and outbound caffeine.ai link from the global footer across all pages.",
+      "id": "REQ-27",
+      "summary": "Remove the footer from the global AppLayout so no footer content, borders, or spacing appears on any page.",
       "acceptanceCriteria": [
-        "The footer no longer displays any text or links referencing “caffeine.ai”.",
-        "No outbound link to https://caffeine.ai/ is present in the rendered footer DOM across all routes.",
-        "The footer still renders without layout breakage (e.g., copyright and other footer items remain aligned and readable)."
+        "The <footer> section currently rendered in frontend/src/components/layout/AppLayout.tsx is removed (or not rendered) so no footer content appears at the bottom of any route.",
+        "After the change, there is no visible bottom border/top border line, footer spacing, or reserved footer area beneath the main content; pages end cleanly at the bottom of their content.",
+        "No backend changes are required and no authenticated/unauthenticated navigation behavior is altered."
       ],
       "file_operations": [
         {
           "path": "frontend/src/components/layout/AppLayout.tsx",
           "operation": "modify",
-          "description": "Update the footer markup to delete the “Built with ❤️ using” text fragment and remove the outbound anchor linking to caffeine.ai (including any dynamic URL construction), while preserving the remaining footer content (e.g., © year / app name and GitHub icon) and alignment."
+          "description": "Remove (or conditionally do not render) the entire <footer> block, including its border/padding and any layout behaviors that reserve footer space (e.g., mt-auto), ensuring the layout ends after <main> content on all routes."
         }
       ]
     }

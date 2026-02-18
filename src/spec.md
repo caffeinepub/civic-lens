@@ -1,11 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Remove the footer watermark/branding text and outbound link referencing caffeine.ai from all pages.
+**Goal:** Remove the entire footer/bottom-of-website area from the app so no footer content or spacing appears on any page.
 
 **Planned changes:**
-- Delete the “Built with ❤️ using caffeine.ai” footer text.
-- Remove the outbound link to https://caffeine.ai/ from the footer across all routes.
-- Ensure the remaining footer content continues to render correctly without layout/alignment issues.
+- Remove (or stop rendering) the `<footer>` section in `frontend/src/components/layout/AppLayout.tsx`.
+- Ensure no footer-related borders/lines, padding, or reserved bottom spacing remain beneath main content across all routes.
 
-**User-visible outcome:** The application footer no longer shows any caffeine.ai branding or link, while the rest of the footer remains intact and readable on every page.
+**User-visible outcome:** All pages end cleanly after their main content with no footer, footer line/border, icons/links, copyright text, or extra bottom spacing.
